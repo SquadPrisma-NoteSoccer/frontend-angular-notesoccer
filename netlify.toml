@@ -1,0 +1,13 @@
+[build]
+  command = "npm ci && npx ng build --configuration=production --output-path=dist"
+  publish = "dist"
+
+# Configuração específica para a branch develop (staging)
+[context.develop]
+  command = "npm ci && npx ng build --configuration=development --output-path=dist"
+
+# Garante que o Angular SPA funcione com rotas (redireciona tudo para index.html)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
