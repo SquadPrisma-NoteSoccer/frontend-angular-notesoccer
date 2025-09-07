@@ -1,0 +1,129 @@
+.welcome-container {
+  min-height: 100vh; /* Container irá ocupar no mínimo toda a altura da tela */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(180deg,rgb(180, 240, 197) 0%, rgba(255, 255, 255, 1) 60%, rgba(255, 255, 255, 1) 100%);
+  color: #414142;
+  padding: 0rem 1rem;
+  box-sizing: border-box;
+  overflow-y: auto; /* se o conteúdo for maior que a tela, ativa rolagem vertical */
+  font-family: 'Inter', sans-serif;
+}
+
+.welcome-img img{
+  max-width: 85vw; /* limita a largura da imagem a 85% da tela (para mobile) */
+  width: 350px; /* largura para telas de desktop */
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+.welcome-title h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.welcome-text {
+  max-width: 500px;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  line-height: 1.3;
+  color: #969696;
+}
+
+.welcome-btn button {
+  background-color: #17AC61;
+  color: #fff;
+  border: none;
+  padding: 0.9rem 5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative; /* permite posicionar o ícone fixo */
+}
+
+.welcome-btn button i {
+  position: absolute;
+  left: 1.2rem;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+
+/* ====== Responsividade ====== */
+
+/* Telas maiores */
+@media (max-width: 768px) {
+  .welcome-img img {
+    width: 350px;
+  }
+
+  .welcome-title h1 {
+    font-size: 2rem;
+  }
+
+  .welcome-text {
+    font-size: 1rem;
+  }
+
+  .welcome-btn button {
+    padding: 1rem 5rem;
+    font-size: 1.1rem;
+    margin-top: 5rem;
+  }
+}
+
+/* Celulares pequenos (até 480px) */
+@media (max-width: 480px) {
+  .welcome-img img {
+    width: 330px;
+  }
+
+  .welcome-title h1 {
+    font-size: 2rem;
+  }
+
+  .welcome-text {
+    font-size: 0.85rem;
+    line-height: 1.2;
+    padding: 0 2.5rem;
+  }
+
+  .welcome-btn button {
+    padding: 0.7rem 7rem;
+    font-size: 0.85rem;
+    margin-top: 2rem;
+  }
+}
+
+/* Celulares pequenos (até 360px) */
+@media (max-width: 360px) {
+  .welcome-img img {
+    width: 300px;
+  }
+
+  .welcome-title h1 {
+    font-size: 2rem;
+  }
+
+  .welcome-text {
+    font-size: 0.9rem;
+    padding: 0 2.5rem;
+  }
+
+  .welcome-btn button {
+    margin-top: 1rem;
+    padding: 1rem 6rem;
+    font-size: 0.85rem;
+  }
+}
+
+
+
+
+
