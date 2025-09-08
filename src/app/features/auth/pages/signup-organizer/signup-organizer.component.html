@@ -1,61 +1,120 @@
-<div class="signup-container">
+<div class="signup-container" data-cy="signup-container">
 
-  <!-- Div do botão d evoltar apenas para mobile -->
-  <div class="signup-back">
-    <button (click)="goBack()">
+  <!-- Div do botão de voltar apenas para mobile -->
+  <div class="signup-back" data-cy="signup-back">
+    <button (click)="goBack()" data-cy="btn-back">
       <i class="fa-solid fa-chevron-left"></i>
     </button>
   </div>
 
-  <div class="signup-title">
+  <div class="signup-title" data-cy="signup-title">
     <h1>NoteSoccer</h1>
   </div>
 
-  <div class="signup-subtitle">
+  <div class="signup-subtitle" data-cy="signup-subtitle">
     <h2>Cadastre-se como Organizador</h2>
   </div>
 
-  <form class="signup-form" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+  <form class="signup-form" [formGroup]="signupForm" (ngSubmit)="onSubmit()" data-cy="signup-form">
     <!-- Nome -->
-    <div class="signup-form-group">
+    <div class="signup-form-group" data-cy="signup-form-group-name">
       <label for="name">Nome</label>
-      <input id="name" type="text" placeholder="Não é permitido números ou caracteres especiais" formControlName="name"/>
+      <input id="name" type="text" placeholder="Não é permitido números ou caracteres especiais"
+      formControlName="name" data-cy="input-name"/>
+
+      <!-- Mensagens de atenção para os campos -->
+      <div *ngIf="signupForm.get('name')?.touched">
+        <div *ngIf="signupForm.get('name')?.hasError('required')">
+          O nome é obrigatório.
+        </div>
+        <div *ngIf="signupForm.get('name')?.hasError('pattern')">
+          O nome deve conter apenas letras e espaços.
+        </div>
+        <div *ngIf="signupForm.get('name')?.hasError('minlength')">
+          O nome deve ter no mínimo 3 caracteres.
+        </div>
+        <div *ngIf="signupForm.get('name')?.hasError('maxlength')">
+          O nome deve ter no máximo 60 caracteres.
+        </div>
+      </div>
     </div>
 
     <!-- Apelido -->
-    <div class="signup-form-group">
+    <div class="signup-form-group" data-cy="signup-form-group-nickname">
       <label for="nickname">Apelido</label>
-      <input id="nickname" type="text" placeholder="Digite seu apelido" formControlName="nickname"/>
+      <input id="nickname" type="text" placeholder="Digite seu apelido"
+      formControlName="nickname" data-cy="input-nickname"/>
+
+      <!-- Mensagens de atenção para os campos -->
+      <div *ngIf="signupForm.get('nickname')?.touched">
+        <div *ngIf="signupForm.get('nickname')?.hasError('pattern')">
+          O Apelido deve conter apenas letras e espaços.
+        </div>
+        <div *ngIf="signupForm.get('nickname')?.hasError('minlength')">
+          O Apelido deve ter no mínimo 3 caracteres.
+        </div>
+        <div *ngIf="signupForm.get('nickname')?.hasError('maxlength')">
+          O Apelido deve ter no máximo 60 caracteres.
+        </div>
+      </div>
     </div>
 
     <!-- Email -->
-    <div class="signup-form-group">
+    <div class="signup-form-group" data-cy="signup-form-group-email">
       <label for="email">E-mail</label>
-      <input id="email" type="email" placeholder="exemplo@provedor.com.br" formControlName="email"/>
+      <input id="email" type="email" placeholder="exemplo@provedor.com.br"
+      formControlName="email" data-cy="input-email"/>
+
+      <!-- Mensagens de atenção para os campos -->
+      <div *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.invalid">
+        <div *ngIf="signupForm.get('email')?.hasError('required')">O email é obrigatório.</div>
+        <div *ngIf="signupForm.get('email')?.hasError('email') || signupForm.get('email')?.hasError('pattern')">
+          Formato de email inválido ou contém espaços.
+        </div>
+        <div *ngIf="signupForm.get('email')?.hasError('minlength')">O email deve ter no mínimo 10 caracteres.</div>
+        <div *ngIf="signupForm.get('email')?.hasError('maxlength')">O email deve ter no máximo 60 caracteres.</div>
+      </div>
     </div>
 
     <!-- WhatsApp -->
-    <div class="signup-form-group">
+    <div class="signup-form-group" data-cy="signup-form-group-whatsapp">
       <label for="whatsapp">WhatsApp</label>
-      <input id="whatsapp" type="text" placeholder="+55 (DDD) 99999-9999" formControlName="whatsapp"/>
+      <input id="whatsapp" type="text" placeholder="+55(DDD)00000-0000"
+      formControlName="whatsapp" data-cy="input-whatsapp"/>
+
+      <!-- Mensagens de atenção para os campos -->
+      <div *ngIf="signupForm.get('whatsapp')?.touched && signupForm.get('whatsapp')?.invalid">
+        <div *ngIf="signupForm.get('whatsapp')?.hasError('pattern')">
+          Formato inválido. Use: +55(DD)00000-0000
+        </div>
+      </div>
     </div>
 
     <!-- Senha -->
-    <div class="signup-form-group">
+    <div class="signup-form-group" data-cy="signup-form-group-password">
       <label for="password">Senha</label>
-      <input id="password" type="password" placeholder="De 8 a 15 caracteres (letras e números)" formControlName="password"/>
+      <input id="password" type="password" placeholder="De 8 a 15 caracteres (letras e números)"
+      formControlName="password" data-cy="input-password"/>
+
+      <!-- Mensagens de atenção para os campos -->
+      <div *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid">
+        <div *ngIf="signupForm.get('password')?.hasError('required')">A senha é obrigatória.</div>
+        <div *ngIf="signupForm.get('password')?.hasError('minlength')">A senha deve ter no mínimo 8 caracteres.</div>
+        <div *ngIf="signupForm.get('password')?.hasError('maxlength')">A senha deve ter no máximo 15 caracteres.</div>
+        <div *ngIf="signupForm.get('password')?.hasError('pattern')">A senha deve conter apenas letras, números e caracteres especiais válidos.</div>
+      </div>
     </div>
 
     <!-- Botões -->
-    <div class="container-button">
-      <div class="signup-button">
-        <button type="submit">
+    <div class="container-button" data-cy="container-button">
+      <div class="signup-button" data-cy="signup-button">
+        <button type="submit" data-cy="signup-btn">
           <i class="fa-solid fa-chevron-right"></i> Cadastre-se
         </button>
       </div>
 
-      <div class="login-button">
-        <button >
+      <div class="login-button" data-cy="login-button">
+        <button data-cy="login-btn">
           <i class="fa-solid fa-chevron-right"></i> Já tem conta? ACESSAR
         </button>
       </div>

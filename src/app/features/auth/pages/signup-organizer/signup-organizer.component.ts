@@ -15,12 +15,34 @@ export class SignupOrganizerComponent {
 
   constructor(private fb: FormBuilder, private router: Router){
     this.signupForm = this.fb.group({
-      //campos que devem ser validados
-      name: ['', Validators.required],
-      nickname: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      whatsapp: ['', Validators.required],
-      password: ['', Validators.required],
+      //campos que devem ser validados e outros opcionais
+      name: ['', [
+        Validators.required,
+        Validators.pattern(/^[A-Za-zÀ-ÿ\s]+$/),
+        Validators.minLength(3),
+        Validators.maxLength(60)
+      ]],
+      nickname: ['', [
+        Validators.pattern(/^[A-Za-zÀ-ÿ\s]+$/),
+        Validators.minLength(3),
+        Validators.maxLength(60)
+      ]],
+      email: ['', [
+        Validators.required,
+        Validators.email,
+        Validators.pattern(/^\S+@\S+\.\S+$/), // não permite espaços
+        Validators.minLength(10),
+        Validators.maxLength(60)
+      ]],
+      whatsapp: ['', [
+        Validators.pattern(/^\+55\(\d{2}\)\d{4,5}-\d{4}$/)
+      ]],
+      password: ['', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(15),
+        Validators.pattern(/^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?`~]*$/) // letras, números e caracteres especiais
+  ]]
     });
   }
 
@@ -29,8 +51,11 @@ export class SignupOrganizerComponent {
   //metodo de cadastro se estiver válido, exibe no console
   onSubmit() {
     if(this.signupForm.valid) {
+      alert('Cadastro realizado com sucesso!');
       console.log('Organizador cadastrado: ', this.signupForm.value);
-    }
+    } else {
+    alert('Preencha todos os campos obrigatórios corretamente.');
+  }
   }
 
   //metodo para voltar para a tela de boas-vindas
