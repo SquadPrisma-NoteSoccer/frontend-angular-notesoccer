@@ -1,12 +1,23 @@
 [build]
-  command = "npm ci && npx ng build --configuration=production --output-path=dist"
-  publish = "dist"
+  command = "npm install && npm run build -- --configuration=production"
+  publish = "dist/notesoccer"
 
-# Configuração específica para a branch develop (staging)
-[context.develop]
-  command = "npm ci && npx ng build --configuration=development --output-path=dist"
+[build.environment]
+  NODE_VERSION = "20"
 
-# Garante que o Angular SPA funcione com rotas (redireciona tudo para index.html)
+# Produção (branch main)
+[context.production]
+  command = "npm install && npm run build -- --configuration=production"
+
+# Branch deploys (ex.: develop)
+[context.branch-deploy]
+  command = "npm install && npm run build -- --configuration=development"
+
+# Deploy previews (PRs)
+[context.deploy-preview]
+  command = "npm install && npm run build -- --configuration=development"
+
+# Angular SPA redirect
 [[redirects]]
   from = "/*"
   to = "/index.html"
