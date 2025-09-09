@@ -1,6 +1,6 @@
 [build]
   command = "npm install && npm run build -- --configuration=production"
-  publish = "dist/notesoccer"
+  publish = "dist/notesoccer/browser"
 
 [build.environment]
   NODE_VERSION = "20"
