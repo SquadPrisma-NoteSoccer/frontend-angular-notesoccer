@@ -1,24 +1,24 @@
 [build]
-  command = "npm install && npm run build -- --configuration=production"
-  publish = "dist/notesoccer/browser"
+command = "npm ci && npm run build -- --configuration=production"
+publish = "dist/notesoccer/browser"
 
 [build.environment]
-  NODE_VERSION = "20"
+NODE_VERSION = "20"
 
-# Produção (branch main)
+# Produção (main)
 [context.production]
-  command = "npm install && npm run build -- --configuration=production"
+command = "npm ci && npm run build -- --configuration=production"
 
-# Branch deploys (ex.: develop)
+# Branch deploys (develop, etc.)
 [context.branch-deploy]
-  command = "npm install && npm run build -- --configuration=development"
+command = "npm ci && npm run build -- --configuration=development"
 
 # Deploy previews (PRs)
 [context.deploy-preview]
-  command = "npm install && npm run build -- --configuration=development"
+command = "npm ci && npm run build -- --configuration=development"
 
-# Angular SPA redirect
+# Angular SPA
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+from = "/*"
+to = "/index.html"
+status = 200
