@@ -1,0 +1,35 @@
+name: CI (PR - Frontend)
+
+on:
+  pull_request:
+    branches: [ develop ]
+    # Evita rodar enquanto o projeto Angular não existe
+    paths:
+      - "angular.json"
+      - "package.json"
+      - "src/**"
+      - "projects/**"
+      - ".github/workflows/ci.yml"
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint --if-present
+
+      - name: Build (dev)
+        run: npx ng build --configuration=development --output-path=dist
