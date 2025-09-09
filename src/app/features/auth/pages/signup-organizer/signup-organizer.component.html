@@ -1,0 +1,48 @@
+<div class="signup-container">
+  <div class="signup-title"><h1>NoteSoccer</h1></div>
+  <div class="signup-subtitle"><h2>Cadastre-se como Organizador</h2></div>
+
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+
+    <!-- Nome -->
+    <div class="form-group">
+      <label for="name">Nome</label>
+      <input id="name" type="text" placeholder="Não é permitido números ou caracteres especiais" formControlName="name"/>
+    </div>
+
+    <!-- Apelido -->
+    <div class="form-group">
+      <label for="nickname">Apelido</label>
+      <input id="nickname" type="text" placeholder="Digite seu apelido" formControlName="nickname"/>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">E-mail</label>
+      <input id="email" type="email" placeholder="exemplo@provedor.com.br" formControlName="email"/>
+    </div>
+
+    <!-- WhatsApp -->
+    <div class="form-group">
+      <label for="whatsapp">WhatsApp</label>
+      <input id="whatsapp" type="text" placeholder="+55 (DDD) 99999-9999" formControlName="whatsapp"/>
+    </div>
+
+    <!-- Senha -->
+    <div class="form-group">
+      <label for="password">Senha</label>
+      <input id="password" type="password" placeholder="De 8 a 15 caracteres (letras e números)" formControlName="password"/>
+    </div>
+
+    <!-- Botões -->
+    <div class="signup-button">
+      <button type="submit">
+        <i class="fa-solid fa-chevron-right"></i> Cadastre-se
+      </button>
+
+      <button type="button" >
+        <i class="fa-solid fa-chevron-right"></i> Já tem conta? ACESSAR
+      </button>
+    </div>
+  </form>
+</div>
