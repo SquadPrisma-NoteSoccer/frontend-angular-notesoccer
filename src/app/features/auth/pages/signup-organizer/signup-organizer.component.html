@@ -3,7 +3,7 @@
   <!-- Div do botão de voltar apenas para mobile -->
   <div class="signup-back" data-cy="signup-back">
     <button (click)="goBack()" data-cy="btn-back">
-      <i class="fa-solid fa-chevron-left"></i>
+      <i class="fa-solid fa-xmark"></i>
     </button>
   </div>
 
@@ -79,13 +79,16 @@
     <!-- WhatsApp -->
     <div class="signup-form-group" data-cy="signup-form-group-whatsapp">
       <label for="whatsapp">WhatsApp</label>
-      <input id="whatsapp" type="text" placeholder="+55(DDD)00000-0000"
-      formControlName="whatsapp" data-cy="input-whatsapp"/>
+      <div class="input-wrapper">
+        <input id="whatsapp" type="text" placeholder=" DDD + número"
+          formControlName="whatsapp" data-cy="input-whatsapp"/>
+      </div>
+
 
       <!-- Mensagens de atenção para os campos -->
       <div *ngIf="signupForm.get('whatsapp')?.touched && signupForm.get('whatsapp')?.invalid">
         <div *ngIf="signupForm.get('whatsapp')?.hasError('pattern')">
-          Formato inválido. Use: +55(DD)00000-0000
+          Formato inválido. Use: DDD + numero
         </div>
       </div>
     </div>

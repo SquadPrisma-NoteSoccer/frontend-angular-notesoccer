@@ -14,7 +14,7 @@
 .signup-back {
   position: absolute;
   top: 1rem;
-  left: 1rem;
+  right: 1rem;
   display: none; /* escondido em telas grandes */
   z-index: 10;
 }
@@ -81,6 +81,28 @@
   border-color: #17AC61;
   box-shadow: 0 0 5px rgba(15, 80, 47, 0.5);
 }
+
+/* css para deixar o prefixo +55 fixo no input*/
+.input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.input-wrapper::before {
+  content: "+55";
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #555;
+  font-size: 14px;
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding-left: 40px; /* espaço pro +55 fixo */
+}
+
 
 .container-button {
   display: flex;
@@ -195,6 +217,10 @@
 
   }
 
+  .input-wrapper input {
+    padding: 0.7rem 3rem;
+  }
+
   .container-button button {
     font-size: 0.95rem;
     padding: 0.8rem;
@@ -241,6 +267,10 @@
   .signup-form-group input {
     padding: 0.5rem 0.8rem;
     font-size: 0.65rem;
+  }
+
+  .input-wrapper input {
+    padding: 0.7rem 3rem;
   }
 
   .container-button {

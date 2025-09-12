@@ -35,7 +35,7 @@ export class SignupOrganizerComponent {
         Validators.maxLength(60)
       ]],
       whatsapp: ['', [
-        Validators.pattern(/^\+55\(\d{2}\)\d{4,5}-\d{4}$/)
+        Validators.pattern(/^[1-9]{2}[0-9]{8,9}$/)
       ]],
       password: ['', [
         Validators.required,
