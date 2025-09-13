@@ -1,27 +1,23 @@
 [build]
-# Build padrão (local/preview) SEM prerender/SSR
-command = "npm ci && npx ng build --configuration=development --output-path=dist/notesoccer --no-prerender"
-publish = "dist/notesoccer/browser"
+# Build sem prerender; se gerar "browser/", copiamos pro root e publicamos o root.
+command = "npm ci && npx ng build --configuration=development --output-path=dist/notesoccer --no-prerender && if [ -d dist/notesoccer/browser ]; then cp -r dist/notesoccer/browser/* dist/notesoccer/; fi && echo '--- ls dist/notesoccer (publicado)' && ls -la dist/notesoccer"
+publish = "dist/notesoccer"
 
 [build.environment]
 NODE_VERSION = "20"
 
-# Produção (main) — build normal
 [context.production]
-command = "npm ci && npx ng build --configuration=production --output-path=dist/notesoccer"
-publish = "dist/notesoccer/browser"
+command = "npm ci && npx ng build --configuration=production --output-path=dist/notesoccer && if [ -d dist/notesoccer/browser ]; then cp -r dist/notesoccer/browser/* dist/notesoccer/; fi && echo '--- ls dist/notesoccer (publicado)' && ls -la dist/notesoccer"
+publish = "dist/notesoccer"
 
-# Branch deploys (ex.: develop) — SEM prerender
 [context.branch-deploy]
-command = "npm ci && npx ng build --configuration=development --output-path=dist/notesoccer --no-prerender && echo '--- ls dist/notesoccer' && ls -la dist/notesoccer && echo '--- ls dist/notesoccer/browser' && ls -la dist/notesoccer/browser"
-publish = "dist/notesoccer/browser"
+command = "npm ci && npx ng build --configuration=development --output-path=dist/notesoccer --no-prerender && if [ -d dist/notesoccer/browser ]; then cp -r dist/notesoccer/browser/* dist/notesoccer/; fi && echo '--- ls dist/notesoccer (publicado)' && ls -la dist/notesoccer"
+publish = "dist/notesoccer"
 
-# Deploy previews (PRs) — SEM prerender
 [context.deploy-preview]
-command = "npm ci && npx ng build --configuration=development --output-path=dist/notesoccer --no-prerender"
-publish = "dist/notesoccer/browser"
+command = "npm ci && npx ng build --configuration=development --output-path=dist/notesoccer --no-prerender && if [ -d dist/notesoccer/browser ]; then cp -r dist/notesoccer/browser/* dist/notesoccer/; fi && echo '--- ls dist/notesoccer (publicado)' && ls -la dist/notesoccer"
+publish = "dist/notesoccer"
 
-# SPA fallback
 [[redirects]]
 from = "/*"
 to = "/index.html"
