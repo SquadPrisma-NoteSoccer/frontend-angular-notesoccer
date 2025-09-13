@@ -1,23 +1,26 @@
 [build]
-# Build sem prerender; se gerar "browser/", copiamos pro root e publicamos o root.
-command = "npm ci && npx ng build --configuration=development --output-path=dist/notesoccer --no-prerender && if [ -d dist/notesoccer/browser ]; then cp -r dist/notesoccer/browser/* dist/notesoccer/; fi && echo '--- ls dist/notesoccer (publicado)' && ls -la dist/notesoccer"
-publish = "dist/notesoccer"
+command = "bash ./netlify-build.sh development"
+publish = "dist/publish"
 
 [build.environment]
 NODE_VERSION = "20"
 
+# Produção (main)
 [context.production]
-command = "npm ci && npx ng build --configuration=production --output-path=dist/notesoccer && if [ -d dist/notesoccer/browser ]; then cp -r dist/notesoccer/browser/* dist/notesoccer/; fi && echo '--- ls dist/notesoccer (publicado)' && ls -la dist/notesoccer"
-publish = "dist/notesoccer"
+command = "bash ./netlify-build.sh production"
+publish = "dist/publish"
 
+# Branch deploys (develop etc.)
 [context.branch-deploy]
-command = "npm ci && npx ng build --configuration=development --output-path=dist/notesoccer --no-prerender && if [ -d dist/notesoccer/browser ]; then cp -r dist/notesoccer/browser/* dist/notesoccer/; fi && echo '--- ls dist/notesoccer (publicado)' && ls -la dist/notesoccer"
-publish = "dist/notesoccer"
+command = "bash ./netlify-build.sh development"
+publish = "dist/publish"
 
+# Deploy previews (PRs)
 [context.deploy-preview]
-command = "npm ci && npx ng build --configuration=development --output-path=dist/notesoccer --no-prerender && if [ -d dist/notesoccer/browser ]; then cp -r dist/notesoccer/browser/* dist/notesoccer/; fi && echo '--- ls dist/notesoccer (publicado)' && ls -la dist/notesoccer"
-publish = "dist/notesoccer"
+command = "bash ./netlify-build.sh development"
+publish = "dist/publish"
 
+# SPA fallback
 [[redirects]]
 from = "/*"
 to = "/index.html"
