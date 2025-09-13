@@ -1,24 +1,26 @@
 [build]
+# Build padrão (local/preview) SEM prerender/SSR
 command = "if [ -f package-lock.json ]; then npm ci; else npm install; fi && npm run build -- --configuration=development --no-prerender"
 publish = "dist/notesoccer/browser"
 
 [build.environment]
 NODE_VERSION = "20"
 
-# Produção (main)
+# Produção (main) — pode manter o build normal (com SSR/prerender se quiser)
 [context.production]
-command = "if [ -f package-lock.json ]; then npm ci; else npm install; fi && npm run build -- --configuration=production --no-prerender"
+command = "if [ -f package-lock.json ]; then npm ci; else npm install; fi && npm run build -- --configuration=production"
 
-# Branch deploys (develop, etc.)
+# Branch deploys (develop, etc.) — SEM prerender
 [context.branch-deploy]
 command = "if [ -f package-lock.json ]; then npm ci; else npm install; fi && npm run build -- --configuration=development --no-prerender"
 
-# Deploy previews (PRs)
+# Deploy previews (PRs) — SEM prerender
 [context.deploy-preview]
-command = "if [ -f package-lock.json ]; then npm ci; else npm install; fi && npm run build -- --configuration=development"
+command = "if [ -f package-lock.json ]; then npm ci; else npm install; fi && npm run build -- --configuration=development --no-prerender"
 
-# Angular SPA
+# SPA fallback (garante que /rota funcione no preview)
 [[redirects]]
 from = "/*"
 to = "/index.html"
 status = 200
+
