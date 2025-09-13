@@ -1,9 +1,9 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
-import { config } from './app/app.config.server';
+import { appConfig } from './app/app.config.server';
+import { BootstrapContext } from '@angular/platform-server';
 
-
-// Usar bootstrapApplication diretamente com o contexto
-const bootstrap = () => bootstrapApplication(AppComponent, config);
-
-export default bootstrap;
+export default function bootstrap(context: BootstrapContext) {
+  // Passa o "context" para o bootstrap no servidor
+  return bootstrapApplication(AppComponent, appConfig, { context });
+}
