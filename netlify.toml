@@ -7,11 +7,11 @@ NODE_VERSION = "20"
 
 # Produção (main)
 [context.production]
-command = "if [ -f package-lock.json ]; then npm ci; else npm install; fi && npm run build -- --configuration=production"
+command = "if [ -f package-lock.json ]; then npm ci; else npm install; fi && npm run build -- --configuration=production --no-prerender"
 
 # Branch deploys (develop, etc.)
 [context.branch-deploy]
-command = "if [ -f package-lock.json ]; then npm ci; else npm install; fi && npm run build -- --configuration=development"
+command = "if [ -f package-lock.json ]; then npm ci; else npm install; fi && npm run build -- --configuration=development --no-prerender"
 
 # Deploy previews (PRs)
 [context.deploy-preview]
