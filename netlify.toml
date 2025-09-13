@@ -1,5 +1,3 @@
-# netlify.toml
-
 [build]
 # Build padrão (local/preview) SEM prerender/SSR
 command = "npm ci && npx ng build --configuration=development --output-path=dist/notesoccer --no-prerender"
@@ -8,22 +6,23 @@ publish = "dist/notesoccer/browser"
 [build.environment]
 NODE_VERSION = "20"
 
-# Produção (main) — build normal (mantém possibilidade de SSR/prerender)
+# Produção (main) — build normal
 [context.production]
 command = "npm ci && npx ng build --configuration=production --output-path=dist/notesoccer"
+publish = "dist/notesoccer/browser"
 
 # Branch deploys (ex.: develop) — SEM prerender
 [context.branch-deploy]
-command = "npm ci && npx ng build --configuration=development --output-path=dist/notesoccer --no-prerender"
+command = "npm ci && npx ng build --configuration=development --output-path=dist/notesoccer --no-prerender && echo '--- ls dist/notesoccer' && ls -la dist/notesoccer && echo '--- ls dist/notesoccer/browser' && ls -la dist/notesoccer/browser"
+publish = "dist/notesoccer/browser"
 
 # Deploy previews (PRs) — SEM prerender
 [context.deploy-preview]
 command = "npm ci && npx ng build --configuration=development --output-path=dist/notesoccer --no-prerender"
+publish = "dist/notesoccer/browser"
 
-# SPA fallback para rotas do Angular
+# SPA fallback
 [[redirects]]
 from = "/*"
 to = "/index.html"
 status = 200
-
-
