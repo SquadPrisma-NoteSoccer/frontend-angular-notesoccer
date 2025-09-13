@@ -1,23 +1,68 @@
+# ==== função helper em shell (inline) ====
+# 1) builda
+# 2) descobre onde está o index.html (browser mais comum)
+# 3) copia para dist/publish (que será o publish final)
+# 4) mostra o conteúdo publicado
+build_copy_cmd = """
+npm ci &&
+npx ng build --configuration=development --output-path=dist/notesoccer --no-prerender &&
+PUB=""
+# tentativas em ordem
+for CAND in "dist/notesoccer/browser" "dist/browser" "dist/notesoccer"; do
+  if [ -f "$CAND/index.html" ]; then PUB="$CAND"; break; fi
+done
+# garante pasta de publicação
+mkdir -p dist/publish
+if [ -n "$PUB" ]; then
+  cp -r "$PUB"/* dist/publish/
+else
+  echo "ERRO: não encontrei index.html em dist/notesoccer/browser nem dist/browser nem dist/notesoccer"
+  exit 1
+fi
+echo ">>> Publicando de: $PUB"
+echo ">>> Conteúdo de dist/publish:"
+ls -la dist/publish
+"""
+
 [build]
-# Build sem prerender; se gerar "browser/", copiamos pro root e publicamos o root.
-command = "npm ci && npx ng build --configuration=development --output-path=dist/notesoccer --no-prerender && if [ -d dist/notesoccer/browser ]; then cp -r dist/notesoccer/browser/* dist/notesoccer/; fi && echo '--- ls dist/notesoccer (publicado)' && ls -la dist/notesoccer"
-publish = "dist/notesoccer"
+command = build_copy_cmd
+publish = "dist/publish"
 
 [build.environment]
 NODE_VERSION = "20"
 
+# Produção (main) — mesmo procedimento, mas build prod
 [context.production]
-command = "npm ci && npx ng build --configuration=production --output-path=dist/notesoccer && if [ -d dist/notesoccer/browser ]; then cp -r dist/notesoccer/browser/* dist/notesoccer/; fi && echo '--- ls dist/notesoccer (publicado)' && ls -la dist/notesoccer"
-publish = "dist/notesoccer"
+command = """
+npm ci &&
+npx ng build --configuration=production --output-path=dist/notesoccer &&
+PUB=""
+for CAND in "dist/notesoccer/browser" "dist/browser" "dist/notesoccer"; do
+  if [ -f "$CAND/index.html" ]; then PUB="$CAND"; break; fi
+done
+mkdir -p dist/publish
+if [ -n "$PUB" ]; then
+  cp -r "$PUB"/* dist/publish/
+else
+  echo "ERRO: não encontrei index.html para produção"
+  exit 1
+fi
+echo ">>> Publicando de: $PUB"
+ls -la dist/publish
+"""
+publish = "dist/publish"
 
+# Branch deploys (develop etc.)
 [context.branch-deploy]
-command = "npm ci && npx ng build --configuration=development --output-path=dist/notesoccer --no-prerender && if [ -d dist/notesoccer/browser ]; then cp -r dist/notesoccer/browser/* dist/notesoccer/; fi && echo '--- ls dist/notesoccer (publicado)' && ls -la dist/notesoccer"
-publish = "dist/notesoccer"
+command = build_copy_cmd
+publish = "dist/publish"
 
+# Deploy previews (PRs)
 [context.deploy-preview]
-command = "npm ci && npx ng build --configuration=development --output-path=dist/notesoccer --no-prerender && if [ -d dist/notesoccer/browser ]; then cp -r dist/notesoccer/browser/* dist/notesoccer/; fi && echo '--- ls dist/notesoccer (publicado)' && ls -la dist/notesoccer"
-publish = "dist/notesoccer"
+command = build_copy_cmd
+publish = "dist/publish"
 
+# SPA fallback
 [[redirects]]
 from = "/*"
 to = "/index.html"
