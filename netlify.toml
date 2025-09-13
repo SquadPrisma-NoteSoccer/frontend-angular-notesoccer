@@ -1,5 +1,5 @@
 [build]
-command = "if [ -f package-lock.json ]; then npm ci; else npm install; fi && npm run build -- --configuration=development"
+command = "if [ -f package-lock.json ]; then npm ci; else npm install; fi && npm run build -- --configuration=development --no-prerender"
 publish = "dist/notesoccer/browser"
 
 [build.environment]
