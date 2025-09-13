@@ -31,5 +31,5 @@ jobs:
       - name: Lint
         run: npm run lint --if-present
 
-      - name: Build (dev)
-        run: npx ng build --configuration=development --output-path=dist
+      - name: Build (dev, no prerender)
+        run: npx ng build --configuration=development --output-path=dist --no-prerender

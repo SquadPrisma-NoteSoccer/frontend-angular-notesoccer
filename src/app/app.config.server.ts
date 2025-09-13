@@ -1,11 +1,11 @@
-import { mergeApplicationConfig, ApplicationConfig } from '@angular/core';
+import { ApplicationConfig } from '@angular/core';
 import { provideServerRendering } from '@angular/platform-server';
-import { appConfig } from './app.config';
+import { appConfig as browserConfig } from './app.config';
 
-const serverConfig: ApplicationConfig = {
+export const appConfig: ApplicationConfig = {
+  ...browserConfig,
   providers: [
-    provideServerRendering()
-  ]
+    ...(browserConfig.providers ?? []),
+    provideServerRendering(), // habilita SSR no lado do servidor
+  ],
 };
-
-export const config = mergeApplicationConfig(appConfig, serverConfig);

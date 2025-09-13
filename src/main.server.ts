@@ -1,8 +1,18 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
-import { config } from './app/app.config.server';
+import { appConfig } from './app/app.config.server';
+import { provideServerRendering } from '@angular/platform-server';
 
-// Usar bootstrapApplication diretamente com o contexto
-const bootstrap = () => bootstrapApplication(AppComponent, config);
+export default function bootstrap(context: any) {
+  // Garante a plataforma de SSR mesmo se o appConfig do server não for mesclado
+  const serverConfig = {
+    ...(appConfig as any),
+    providers: [
+      ...(((appConfig as any).providers) ?? []),
+      provideServerRendering(),
+    ],
+  };
 
-export default bootstrap;
+  // Alguns setups exigem repassar o `context` ao bootstrap do servidor
+  return bootstrapApplication(AppComponent, serverConfig as any, { context } as any);
+}

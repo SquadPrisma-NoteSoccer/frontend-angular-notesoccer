@@ -1,24 +1,28 @@
 
 <!-- Sessão de Boas-vindas para o usuario -->
-<div class="welcome-container">
 
-  <div class="welcome-img">
-    <img src="/welcome/img-welcome.png" alt="Imagem de boas-vindas!">
+<div class="welcome-container" data-cy="welcome-container">
+
+  <div class="welcome-img" data-cy="welcome-img">
+    <img src="/welcome/img-welcome.png" alt="Imagem de boas-vindas!" data-cy="welcome-image">
   </div>
 
-  <div class="welcome-title">
+  <div class="welcome-title" data-cy="welcome-title">
     <h1>Bem-vindo(a) <br> ao NoteSoccer!</h1>
   </div>
 
-  <div class="welcome-text">
+  <div class="welcome-text" data-cy="welcome-text">
+
     <p>Gerencie ligas de futebol amador com facilidade: cadastre times, agende jogos, defina arenas e horários.
       Compartilhe as partidas diretamente com sua galera no WhatsApp.
     </p>
   </div>
 
-  <div class="welcome-btn">
+  <div class="welcome-btn" data-cy="welcome-btn">
     <!-- O (click)="goToSignup()" chama o metodo que está no ts para redirecionar a tela de cadastro -->
-    <button (click)="goToSignup()"><i class="fa-solid fa-chevron-right"></i>Acesse agora!</button>
+    <button (click)="goToSignup()" data-cy="btn-access">
+      <i class="fa-solid fa-chevron-right"></i>Acesse agora!
+    </button>
   </div>
 </div>
 
