@@ -1,26 +1,29 @@
+# netlify.toml
+
 [build]
 # Build padrão (local/preview) SEM prerender/SSR
-command = "if [ -f package-lock.json ]; then npm ci; else npm install; fi && npm run build -- --configuration=development --no-prerender"
+command = "npm ci && npx ng build --configuration=development --output-path=dist/notesoccer --no-prerender"
 publish = "dist/notesoccer/browser"
 
 [build.environment]
 NODE_VERSION = "20"
 
-# Produção (main) — pode manter o build normal (com SSR/prerender se quiser)
+# Produção (main) — build normal (mantém possibilidade de SSR/prerender)
 [context.production]
-command = "if [ -f package-lock.json ]; then npm ci; else npm install; fi && npm run build -- --configuration=production"
+command = "npm ci && npx ng build --configuration=production --output-path=dist/notesoccer"
 
-# Branch deploys (develop, etc.) — SEM prerender
+# Branch deploys (ex.: develop) — SEM prerender
 [context.branch-deploy]
-command = "if [ -f package-lock.json ]; then npm ci; else npm install; fi && npm run build -- --configuration=development --no-prerender"
+command = "npm ci && npx ng build --configuration=development --output-path=dist/notesoccer --no-prerender"
 
 # Deploy previews (PRs) — SEM prerender
 [context.deploy-preview]
-command = "if [ -f package-lock.json ]; then npm ci; else npm install; fi && npm run build -- --configuration=development --no-prerender"
+command = "npm ci && npx ng build --configuration=development --output-path=dist/notesoccer --no-prerender"
 
-# SPA fallback (garante que /rota funcione no preview)
+# SPA fallback para rotas do Angular
 [[redirects]]
 from = "/*"
 to = "/index.html"
 status = 200
+
 
