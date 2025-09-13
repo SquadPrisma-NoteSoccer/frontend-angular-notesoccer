@@ -5,22 +5,18 @@ publish = "dist/publish"
 [build.environment]
 NODE_VERSION = "20"
 
-# Produção (main)
 [context.production]
 command = "bash ./netlify-build.sh production"
 publish = "dist/publish"
 
-# Branch deploys (develop etc.)
 [context.branch-deploy]
 command = "bash ./netlify-build.sh development"
 publish = "dist/publish"
 
-# Deploy previews (PRs)
 [context.deploy-preview]
 command = "bash ./netlify-build.sh development"
 publish = "dist/publish"
 
-# SPA fallback
 [[redirects]]
 from = "/*"
 to = "/index.html"
