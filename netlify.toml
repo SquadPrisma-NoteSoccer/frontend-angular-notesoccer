@@ -1,0 +1,24 @@
+[build]
+command = "if [ -f package-lock.json ]; then npm ci; else npm install; fi && npm run build -- --configuration=development"
+publish = "dist/notesoccer/browser"
+
+[build.environment]
+NODE_VERSION = "20"
+
+# Produção (main)
+[context.production]
+command = "if [ -f package-lock.json ]; then npm ci; else npm install; fi && npm run build -- --configuration=production"
+
+# Branch deploys (develop, etc.)
+[context.branch-deploy]
+command = "if [ -f package-lock.json ]; then npm ci; else npm install; fi && npm run build -- --configuration=development"
+
+# Deploy previews (PRs)
+[context.deploy-preview]
+command = "if [ -f package-lock.json ]; then npm ci; else npm install; fi && npm run build -- --configuration=development"
+
+# Angular SPA
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200

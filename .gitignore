@@ -1,3 +1,5 @@
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+
 # Angular specific
 /dist/
 /out-tsc/
@@ -9,7 +11,7 @@
 
 # Node modules and dependency files
 /node_modules/
-/package-lock.json
+#package-lock.json
 /yarn.lock
 
 # Environment files
