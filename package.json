@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng run notesoccer:serve -o",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:notesoccer": "node dist/notesoccer/server/server.mjs",
+    "serve:ssr:notesoccer": "ng run notesoccer:serve-ssr",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run"
   },
