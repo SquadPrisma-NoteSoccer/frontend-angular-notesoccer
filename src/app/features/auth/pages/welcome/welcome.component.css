@@ -71,6 +71,11 @@
 
 /* Telas menores que 480px */
 @media (max-width: 480px) {
+
+  .welcome-container {
+    min-height: 100dvh;
+  }
+
   .welcome-title h1 {
     font-size: 2rem;
   }
