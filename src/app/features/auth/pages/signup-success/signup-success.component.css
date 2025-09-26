@@ -1,0 +1,155 @@
+.signup-success-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  text-align: center;
+  background-color: #3D8852;
+  color: #fff;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  position: relative;
+  overflow: hidden; /* evita scroll */
+}
+
+.signup-success-back,
+.signup-success-back-welcome {
+  position: absolute;
+  top: 1rem;
+}
+
+.signup-success-back {
+  left: 1rem;
+}
+
+.signup-success-back-welcome {
+  right: 1rem;
+}
+
+.signup-success-back button,
+.signup-success-back-welcome button {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: #fff;
+}
+
+.success-title h1 {
+  font-size: 2rem;
+  padding: 0 2rem;
+  margin-bottom: 0.5rem;
+  max-width: 340px;
+}
+
+.success-text h3{
+  font-size: 1.3rem;
+  color: #fff;
+  margin-bottom: 1rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.success-container-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 100%;
+  max-width: 350px;
+}
+
+.success-btn button {
+  width: 100%;
+  background-color: #FF9547;
+  color: #fff;
+  border: none;
+  padding: 0.9rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.success-btn button i {
+  position: absolute;
+  left: 1rem;
+  font-size: 1.3rem;
+  color: #fff;
+}
+
+.success-btn button:disabled {
+  background-color: #C0B6AF;
+  color: #fff;
+  cursor: not-allowed;
+}
+
+
+/* ===== Responsividade ===== */
+
+@media (max-width: 480px) {
+  .signup-success-container {
+    padding: 3rem 0rem 7rem 0rem;
+  }
+
+  .success-title h1 {
+    font-size: 2.1rem;
+    padding: 0 2rem;
+  }
+
+  .success-text h3 {
+    font-size: 1.2rem;
+  }
+
+  .success-btn button {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .signup-success-container {
+    padding: 3rem 2rem 10rem 2rem;
+  }
+
+  .success-title h1 {
+    font-size: 1.7rem;
+  }
+
+  .success-text h3 {
+    font-size: 1rem;
+  }
+
+  .success-btn button {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 320px) {
+
+  .signup-success-container {
+    padding: 4rem 2rem 4rem 2rem;
+  }
+
+  .success-title h1 {
+    font-size: 1.4rem;
+  }
+
+  .success-text h3 {
+    font-size: 0.9rem;
+  }
+
+  .success-btn button {
+    font-size: 0.8rem;
+    padding: 0.7rem;
+  }
+
+  .success-btn button i{
+    font-size: 1rem;
+
+  }
+}

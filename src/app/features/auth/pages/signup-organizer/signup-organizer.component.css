@@ -11,7 +11,7 @@
   font-family: 'Inter', sans-serif;
 }
 
-.signup-back {
+.signup-back-welcome {
   position: absolute;
   top: 1rem;
   right: 1rem;
@@ -20,7 +20,7 @@
 }
 
 /* Botão do ícone */
-.signup-back button {
+.signup-back-welcome button {
   background: none;
   border: none;
   cursor: pointer;
@@ -28,7 +28,7 @@
   border-radius: 50%;
 }
 
-.signup-back i {
+.signup-back-welcome i {
   font-size: 1.5rem;
   color: #414142;
 }
@@ -183,14 +183,14 @@
   .signup-form {
     width: 50%;
   }
+
+  .signup-back-welcome {
+    display: block;
+  }
 }
 
 /* Celulares médios (até 768px) */
 @media (max-width: 768px) {
-
-  .signup-back {
-    display: block;
-  }
 
   .signup-form {
     width: 70%;

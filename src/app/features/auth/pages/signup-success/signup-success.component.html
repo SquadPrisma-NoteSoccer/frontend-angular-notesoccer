@@ -1,0 +1,42 @@
+<div class="signup-success-container" data-cy="signup-success-container">
+
+  <div class="signup-success-back" data-cy="signup-success-back">
+    <button (click)="goBack()" data-cy="btn-back">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+  </div>
+
+  <div class="signup-success-back-welcome" data-cy="signup-success-back-welcome">
+    <button (click)="goWelcome()" data-cy="btn-welcome">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <div class="success-title" data-cy="success-title">
+    <h1>Cadastro realizado com sucesso NoteSoccer!</h1>
+  </div>
+
+  <div class="success-text" data-cy="success-text">
+    <h3>Vamos para os próximos passos</h3>
+  </div>
+
+  <div class="success-container-btn" data-cy="success-container-btn">
+    <div class="success-btn" data-cy="btn-container-teams">
+      <button data-cy="btn-teams">
+        <i class="fa-regular fa-calendar"></i>Cadastrar times
+      </button>
+    </div>
+
+    <div class="success-btn" data-cy="btn-container-players">
+      <button disabled data-cy="btn-players">
+        <i class="fa-regular fa-calendar"></i>Cadastre os jogadores
+      </button>
+    </div>
+
+    <div class="success-btn" data-cy="btn-container-matches">
+      <button disabled data-cy="btn-matches">
+        <i class="fa-regular fa-calendar"></i>Cadastre as partidas
+      </button>
+    </div>
+  </div>
+</div>
