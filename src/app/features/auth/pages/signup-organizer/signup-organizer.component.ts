@@ -52,15 +52,16 @@ export class SignupOrganizerComponent {
   //metodo de cadastro se estiver válido, exibe no console
   onSubmit() {
     if(this.signupForm.valid) {
-      alert('Cadastro realizado com sucesso!');
-      console.log('Organizador cadastrado: ', this.signupForm.value);
-    } else {
-    alert('Preencha todos os campos obrigatórios corretamente.');
-  }
+      console.log('Organizador cadastrado ', this.signupForm.value);
+
+      this.router.navigate(['/signup-success']);
+    }else {
+      alert('Preencha todos os campos obrigatórios corretamente.');
+    }
   }
 
   //metodo para voltar para a tela de boas-vindas
-  goBack() {
+  goWelcome() {
     this.router.navigate(['']);
   }
 
