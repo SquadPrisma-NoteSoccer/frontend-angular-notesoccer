@@ -93,6 +93,7 @@
 @media (max-width: 480px) {
   .signup-success-container {
     padding: 3rem 0rem 7rem 0rem;
+    min-height: 100dvh; /* ocupa a altura "real" da viewport */
   }
 
   .success-title h1 {
