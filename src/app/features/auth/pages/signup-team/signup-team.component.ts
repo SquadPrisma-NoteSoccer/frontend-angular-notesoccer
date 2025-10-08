@@ -32,6 +32,12 @@ export class SignupTeamComponent {
   addTeam() {
     if (this.signupTeamForm.invalid) return;
 
+    // Se já atingiu o limite máximo, bloqueia
+    if (this.teams.length >= this.maxTeams) {
+      alert('Limite máximo de 20 times atingido!');
+      return;
+    }
+
     const name = this.signupTeamForm.get('teamName')?.value.trim();
 
     // codigo para impedir de burlar com apenas espaços ou letras insuficientes
