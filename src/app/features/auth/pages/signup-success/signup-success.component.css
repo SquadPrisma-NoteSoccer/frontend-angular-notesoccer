@@ -14,22 +14,22 @@
   overflow: hidden; /* evita scroll */
 }
 
-.signup-success-back,
-.signup-success-back-welcome {
+.div-btn-back,
+.div-btn-welcome {
   position: absolute;
   top: 1rem;
 }
 
-.signup-success-back {
+.div-btn-back {
   left: 1rem;
 }
 
-.signup-success-back-welcome {
+.div-btn-welcome {
   right: 1rem;
 }
 
-.signup-success-back button,
-.signup-success-back-welcome button {
+.div-btn-back button,
+.div-btn-welcome button {
   background: none;
   border: none;
   font-size: 1.3rem;
@@ -51,7 +51,7 @@
   font-family: 'Poppins', sans-serif;
 }
 
-.success-container-btn {
+.container-btn {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
@@ -59,7 +59,7 @@
   max-width: 350px;
 }
 
-.success-btn button {
+.container-btn button {
   width: 100%;
   background-color: #FF9547;
   color: #fff;
@@ -72,16 +72,21 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  transition: 0.2s;
 }
 
-.success-btn button i {
+.container-btn button:hover {
+  background-color: #d66a1ddc;
+}
+
+.container-btn button i {
   position: absolute;
   left: 1rem;
   font-size: 1.3rem;
   color: #fff;
 }
 
-.success-btn button:disabled {
+.container-btn button:disabled {
   background-color: #C0B6AF;
   color: #fff;
   cursor: not-allowed;
@@ -99,7 +104,7 @@
   .success-title h1 {
     font-size: 2.1rem;
     padding: 0 2rem;
-  }
+  }  b
 
   .success-text h3 {
     font-size: 1.2rem;

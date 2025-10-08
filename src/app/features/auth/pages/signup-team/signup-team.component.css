@@ -1,0 +1,507 @@
+.signup-team-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(180deg, rgb(180, 240, 197) 0%, #fff 100%);
+  color: #414142;
+  font-family: 'Inter', sans-serif;
+  padding: 0rem 1rem;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Botões de navegação */
+.div-btn-back,
+.div-btn-welcome {
+  position: absolute;
+  top: 1.2rem;
+}
+
+.div-btn-back {
+  left: 1.2rem;
+}
+
+.div-btn-welcome {
+  right: 1.2rem;
+}
+
+.div-btn-back button,
+.div-btn-welcome button {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  color: #414142;
+  cursor: pointer;
+}
+
+/* Título e subtítulo */
+.signup-team-title {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.signup-team-subtitle  {
+  margin: 0.5rem 0 2rem 0;
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* Formulário */
+.signup-form {
+  width: 100%;
+  max-width: 350px; /* mesma largura dos botões */
+}
+
+.signup-form-group {
+  width: 100%;
+  text-align: left;
+}
+
+.signup-form-group label {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+  font-weight: bold;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: 0.2s;
+  background-color: transparent;
+}
+
+.msg-validation {
+  color: #d9534f;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+  text-align: left;
+}
+
+.btn-add {
+  position: absolute;
+  right: 0.5rem;
+  background-color: #FF9547;
+  color: #fff;
+  border: none;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: background 0.3s ease;
+}
+
+.btn-add:hover {
+  background-color: #d66a1ddc;
+}
+
+/* ===== Título da lista ===== */
+.div-team-list {
+  width: 100%;
+  max-width: 350px;
+}
+
+.team-list-title {
+  margin-top: 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: left;
+}
+
+/* Lista de times */
+.team-list {
+  width: 100%;
+  margin-top: 0.5rem;
+  overflow-y: hidden; /* padrão, sem rolagem */
+}
+
+.team-list li {
+  background-color: transparent;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  padding: 0.7rem;
+  text-align: left;
+  color: #333;
+  font-weight: 500;
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+
+.team-list li:hover {
+  background-color: #d8f1df;
+}
+
+/* Botão de remover */
+.btn-remove-team {
+  position: absolute;
+  right: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.btn-remove-team:hover {
+  color: #d9534f;
+}
+
+/* Quando houver mais de 3 times, aplica rolagem */
+.team-list.scrollable {
+  max-height: 150px; /* altura aproximada para 3 itens */
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #afb3b0 transparent;
+}
+
+/* Personaliza a barra de rolagem (para Chrome, Edge, etc.) */
+.team-list.scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+
+.team-list.scrollable::-webkit-scrollbar-thumb {
+  background-color: #afb3b0;
+  border-radius: 4px;
+}
+
+.team-list.scrollable::-webkit-scrollbar-track {
+  background-color: #eaf7ee;
+}
+
+/* Contador */
+.team-counter {
+  margin: 2rem 0rem;
+  font-size: 0.95rem;
+  color: #414142;
+  text-align: left;
+  font-weight: 600;
+}
+
+.team-counter span {
+  font-weight: bold;
+  margin-left: 0.4rem;
+}
+
+/* Botões de navegação entre telas */
+.container-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 350px;
+}
+
+.container-btn button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.9rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+  width: 100%;
+}
+
+/* Botão de cadastro */
+.div-btn-players button {
+  background-color: #FF9547;
+  color: #ffffff;
+  position: relative;
+}
+
+.div-btn-players button:hover {
+  background-color: #d66a1ddc;
+}
+
+.div-btn-matches button {
+  background-color: #C0B6AF;
+  color: #fff;
+  cursor: not-allowed;
+  position: relative;
+}
+
+
+.div-btn-players button i{
+  position: absolute;
+  right: 1.5rem;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.div-btn-matches button i{
+  position: absolute;
+  right: 1.5rem;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+
+/* ====== RESPONSIVIDADE ======= */
+
+/* Tablets (até 1300px) */
+@media (max-width: 1300px) and  (min-width: 1000px){
+  .signup-team-container {
+    padding: 2rem 2rem;
+  }
+
+  .signup-team-title {
+    font-size: 1.3rem;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .signup-team-subtitle {
+    font-size: 1rem;
+    margin: 0.5rem 0 1rem 0;
+  }
+
+  .signup-form,
+  .div-team-list,
+  .container-btn {
+    max-width: 320px;
+  }
+
+  .signup-form-group label {
+    font-size: 0.8rem;
+  }
+
+  .input-wrapper input {
+    padding: 0.7rem 0.6rem;
+    font-size: 0.8rem;
+  }
+
+  .btn-add {
+    width: 1.6rem;
+    height: 1.6rem;
+    font-size: 0.9rem;
+    right: 0.5rem;
+  }
+
+  .team-list-title {
+    font-size: 0.8rem;
+    margin-top: 1rem;
+  }
+
+  .team-list li {
+    padding: 0.5rem 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  .team-counter {
+    font-size: 0.7rem;
+    margin: 1rem 0;
+  }
+
+  .container-btn button {
+    font-size: 0.9rem;
+    padding: 0.8rem;
+    border-radius: 6px;
+  }
+
+  .div-btn-back,
+  .div-btn-welcome {
+    top: 0.8rem;
+  }
+
+  .div-btn-players button i,
+  .div-btn-matches button i {
+    right: 1rem;
+    font-size: 1rem;
+  }
+
+  /* Ajuste na lista para caber tudo */
+  .team-list.scrollable {
+    max-height: 100px;
+  }
+}
+
+
+/* Celulares pequenos (até 480px) */
+@media (max-width: 480px) {
+
+  .signup-team-container {
+    height: 100dvh;
+  }
+
+  .signup-team-title {
+    font-size: 1.2rem;
+  }
+
+  .signup-team-subtitle {
+    font-size: 0.8rem;
+  }
+
+  .input-wrapper input {
+    padding: 0.8rem 0.7rem;
+    font-size: 0.9rem;
+  }
+
+  .signup-form,
+  .div-team-list,
+  .container-btn {
+    max-width: 300px;
+  }
+
+  .btn-add {
+    width: 1.7rem;
+    height: 1.7rem;
+    font-size: 1rem;
+  }
+
+  .team-counter {
+    font-size: 0.85rem;
+  }
+}
+
+/* Celulares muito pequenos (até 360px) */
+@media (max-width: 360px) {
+
+  .signup-team-title {
+    font-size: 1.1rem;
+  }
+
+  .signup-team-subtitle {
+    font-size: 0.8rem;
+  }
+
+  .input-wrapper input {
+    padding: 0.8rem 0.7rem;
+    font-size: 0.9rem;
+  }
+
+  .team-list li {
+    padding: 0.8rem 0.7rem;
+    font-size: 0.9rem;
+  }
+
+  .signup-form,
+  .div-team-list,
+  .container-btn {
+    max-width: 280px;
+  }
+
+  .container-btn button {
+    font-size: 0.9rem;
+    padding: 0.8rem;
+  }
+}
+
+/* === Celulares ultra pequenos (até 320px) === */
+@media (max-width: 320px) {
+  .signup-team-container {
+    padding: 1rem 0.5rem;
+    min-height: 100dvh;
+  }
+
+  .signup-team-title {
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .signup-team-subtitle {
+    font-size: 0.65rem;
+    margin: 0.5rem 0 1rem 0;
+  }
+
+  .signup-form,
+  .div-team-list,
+  .container-btn {
+    max-width: 250px;
+  }
+
+  .signup-form-group label {
+    font-size: 0.7rem;
+  }
+
+  .input-wrapper input {
+    padding: 0.6rem 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  .error-message {
+    color: #d9534f;
+    font-size: 0.6rem;
+}
+
+  .btn-add {
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 0.7rem;
+    right: 0.3rem;
+  }
+
+
+  .team-list-title {
+    font-size: 0.7rem;
+    margin-top: 1rem;
+  }
+
+  .team-list li {
+    padding: 0.5rem 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  .team-counter {
+    font-size: 0.7rem;
+    margin: 1rem 0;
+  }
+
+  .container-btn {
+    gap: 0.6rem;
+    margin-top: 1.2rem;
+  }
+
+  .container-btn button {
+    font-size: 0.75rem;
+    padding: 0.5rem;
+    border-radius: 6px;
+  }
+
+  .div-btn-back,
+  .div-btn-welcome {
+    top: 0.8rem;
+  }
+
+  .div-btn-back button,
+  .div-btn-welcome button {
+    font-size: 1.1rem;
+  }
+
+  .div-btn-players button i,
+  .div-btn-matches button i {
+    right: 1rem;
+    font-size: 1rem;
+  }
+
+  /* Ajuste na lista para caber tudo */
+  .team-list.scrollable {
+    max-height: 100px;
+  }
+}
+

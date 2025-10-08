@@ -1,12 +1,12 @@
 <div class="signup-success-container" data-cy="signup-success-container">
 
-  <div class="signup-success-back" data-cy="signup-success-back">
+  <div class="div-btn-back" data-cy="div-btn-back">
     <button (click)="goBack()" data-cy="btn-back">
       <i class="fa-solid fa-chevron-left"></i>
     </button>
   </div>
 
-  <div class="signup-success-back-welcome" data-cy="signup-success-back-welcome">
+  <div class="div-btn-welcome" data-cy="div-btn-welcome">
     <button (click)="goWelcome()" data-cy="btn-welcome">
       <i class="fa-solid fa-xmark"></i>
     </button>
@@ -20,9 +20,9 @@
     <h3>Vamos para os próximos passos</h3>
   </div>
 
-  <div class="success-container-btn" data-cy="success-container-btn">
+  <div class="container-btn" data-cy="container-btn">
     <div class="success-btn" data-cy="btn-container-teams">
-      <button data-cy="btn-teams">
+      <button (click)="goTeams()" data-cy="btn-teams">
         <i class="fa-regular fa-calendar"></i>Cadastrar times
       </button>
     </div>
