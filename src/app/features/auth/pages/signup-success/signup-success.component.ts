@@ -21,4 +21,9 @@ export class SignupSuccessComponent {
     this.router.navigate(['']);
   }
 
+  //metodo para direcionar para a tela de cadasto de time
+  goTeams() {
+    this.router.navigate(['signup-team']);
+  }
+
 }

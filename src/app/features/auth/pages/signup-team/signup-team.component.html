@@ -1,0 +1,96 @@
+<div class="signup-team-container" data-cy="signup-team-container">
+
+  <div class="div-btn-back" data-cy="div-btn-back">
+    <button (click)="goBack()" data-cy="btn-back">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+  </div>
+
+  <div class="div-btn-welcome" data-cy="div-btn-welcome">
+    <button (click)="goWelcome()" data-cy="btn-welcome">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <div class="signup-team-title" data-cy="signup-team-title">
+    <h1>NoteSoccer</h1>
+  </div>
+
+  <div class="signup-team-subtitle" data-cy="signup-team-subtitle">
+    <h2>Cadastre seus Times</h2>
+  </div>
+
+  <!-- Formulário -->
+  <form [formGroup]="signupTeamForm" (ngSubmit)="addTeam()" class="signup-form" data-cy="signup-form">
+    <div class="signup-form-group" data-cy="signup-form-group">
+      <label for="teamName">Nome do Time:</label>
+
+      <div class="input-wrapper">
+        <input id="teamName"
+          type="text"
+          placeholder="Não é permitido caracteres especiais"
+          formControlName="teamName"
+          class="input-name-team"
+          data-cy="input-name-team"
+        />
+        <button
+          type="submit"
+          class="btn-add"
+          [disabled]="signupTeamForm.invalid"
+          data-cy="btn-add-team">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+      </div>
+
+      <!-- Mensagens de validação -->
+      <div *ngIf="signupTeamForm.get('teamName')?.touched">
+        <div class="msg-validation" *ngIf="signupTeamForm.get('teamName')?.hasError('required')">
+          O nome do time é obrigatório.
+        </div>
+        <div class="msg-validation" *ngIf="signupTeamForm.get('teamName')?.hasError('pattern')">
+          O nome deve conter apenas letras e espaços.
+        </div>
+        <div class="msg-validation" *ngIf="signupTeamForm.get('teamName')?.hasError('minlength')">
+          O nome deve ter no mínimo 3 letras.
+        </div>
+        <div class="msg-validation" *ngIf="signupTeamForm.get('teamName')?.hasError('maxlength')">
+          O nome deve ter no máximo 20 letras.
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="div-team-list" data-cy="div-team-list">
+    <!-- Título da lista -->
+    <h3 class="team-list-title" data-cy="team-list-title" *ngIf="teams.length > 0">Times cadastrados</h3>
+
+    <!-- Lista de times adicionados -->
+    <ul class="team-list" [ngClass]="{'scrollable': teams.length > 2}" *ngIf="teams.length > 0" data-cy="team-list">
+      <li *ngFor="let team of teams; let i = index">{{ team }}
+        <button class="btn-remove-team" (click)="removeTeam(i)" data-cy="btn-remove-team">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </li>
+    </ul>
+
+    <!-- Contador -->
+     <p class="team-counter" data-cy="team-counter" *ngIf="teams.length > 0">
+      Total de Times Cadastrados: <span>{{ teams.length | number: '2.0' }}/20</span>
+     </p>
+  </div>
+
+
+  <div class="container-btn" data-cy="container-btn">
+    <div class="div-btn-players" data-cy="div-btn-players">
+      <button class="btn-players" data-cy="btn-players">
+        Cadastre os jogadores<i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+
+    <div class="div-btn-matches" data-cy="div-btn-matches">
+      <button disabled class="btn-matches" data-cy="btn-matches">
+        Cadastre as partidas<i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
