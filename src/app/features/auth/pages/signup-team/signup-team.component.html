@@ -22,6 +22,46 @@
 
   <!-- Formulário -->
   <form [formGroup]="signupTeamForm" (ngSubmit)="addTeam()" class="signup-form" data-cy="signup-form">
+
+    <!-- Combo box de Ligas -->
+    <div class="signup-form-group" data-cy="signup-form-league">
+      <label for="league">Nome da Liga:</label>
+
+      <input
+        id="league"
+        type="text"
+        list="leagueList"
+        placeholder="Selecione ou crie uma liga"
+        formControlName="league"
+        class="input-league"
+        (blur)="addLeagueIfNew()"
+        data-cy="input-league"
+      />
+
+      <datalist id="leagueList">
+        <option *ngFor="let league of leagues" [value]="league"></option>
+      </datalist>
+
+      <!-- Mensagens de validação para a liga -->
+      <div *ngIf="signupTeamForm.get('league')?.touched || signupTeamForm.get('league')?.dirty">
+        <div class="msg-validation" *ngIf="signupTeamForm.get('league')?.hasError('required')">
+          O nome da liga é obrigatório.
+        </div>
+        <div class="msg-validation" *ngIf="signupTeamForm.get('league')?.hasError('pattern')">
+          O nome da liga deve conter apenas letras e espaços (sem números ou caracteres especiais).
+        </div>
+        <div class="msg-validation" *ngIf="signupTeamForm.get('league')?.hasError('minlength')">
+          O nome da liga deve ter no mínimo 3 letras.
+        </div>
+        <div class="msg-validation" *ngIf="signupTeamForm.get('league')?.hasError('maxlength')">
+          O nome da liga deve ter no máximo 30 letras.
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- Nome do Time -->
     <div class="signup-form-group" data-cy="signup-form-group">
       <label for="teamName">Nome do Time:</label>
 
@@ -57,28 +97,28 @@
           O nome deve ter no máximo 20 letras.
         </div>
       </div>
+
+      <div class="div-team-list" data-cy="div-team-list">
+        <!-- Título da lista -->
+        <h3 class="team-list-title" data-cy="team-list-title" *ngIf="teams.length > 0">Times cadastrados</h3>
+
+        <!-- Lista de times adicionados -->
+        <ul class="team-list" [ngClass]="{'scrollable': teams.length > 2}" *ngIf="teams.length > 0" data-cy="team-list">
+          <li *ngFor="let team of teams; let i = index">{{ team }}
+            <button class="btn-remove-team" (click)="removeTeam(i)" data-cy="btn-remove-team">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </li>
+        </ul>
+
+        <!-- Contador -->
+        <p class="team-counter" data-cy="team-counter" *ngIf="teams.length > 0">
+          Total de Times Cadastrados: <span>{{ teams.length | number: '2.0' }}/20</span>
+        </p>
+      </div>
+
     </div>
   </form>
-
-  <div class="div-team-list" data-cy="div-team-list">
-    <!-- Título da lista -->
-    <h3 class="team-list-title" data-cy="team-list-title" *ngIf="teams.length > 0">Times cadastrados</h3>
-
-    <!-- Lista de times adicionados -->
-    <ul class="team-list" [ngClass]="{'scrollable': teams.length > 2}" *ngIf="teams.length > 0" data-cy="team-list">
-      <li *ngFor="let team of teams; let i = index">{{ team }}
-        <button class="btn-remove-team" (click)="removeTeam(i)" data-cy="btn-remove-team">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </li>
-    </ul>
-
-    <!-- Contador -->
-     <p class="team-counter" data-cy="team-counter" *ngIf="teams.length > 0">
-      Total de Times Cadastrados: <span>{{ teams.length | number: '2.0' }}/20</span>
-     </p>
-  </div>
-
 
   <div class="container-btn" data-cy="container-btn">
     <div class="div-btn-players" data-cy="div-btn-players">

@@ -63,8 +63,8 @@
 .signup-form-group label {
   display: block;
   font-size: 1rem;
-  margin-bottom: 0.3rem;
   font-weight: bold;
+  margin: 1rem 0 0.3rem 0;
 }
 
 .input-wrapper {
@@ -83,6 +83,19 @@
   transition: 0.2s;
   background-color: transparent;
 }
+
+/* Campo select de liga e endereço */
+.input-league {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #fff;
+  outline: none;
+  background-color: transparent;
+}
+
 
 .msg-validation {
   color: #d9534f;
@@ -191,7 +204,7 @@
 
 /* Contador */
 .team-counter {
-  margin: 2rem 0rem;
+  margin: 1rem 0rem 2rem 0;
   font-size: 0.95rem;
   color: #414142;
   text-align: left;
@@ -295,6 +308,11 @@
     font-size: 0.8rem;
   }
 
+  .input-league {
+    padding: 0.7rem 0.6rem;
+    font-size: 0.8rem;
+  }
+
   .btn-add {
     width: 1.6rem;
     height: 1.6rem;
@@ -349,22 +367,41 @@
   }
 
   .signup-team-title {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   .signup-team-subtitle {
+    font-size: 0.7rem;
+    margin-bottom: 1rem;
+  }
+
+  .signup-form-group label {
     font-size: 0.8rem;
   }
 
   .input-wrapper input {
-    padding: 0.8rem 0.7rem;
+    padding: 0.6rem 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .input-league {
+    padding: 0.6rem 0.5rem;
     font-size: 0.9rem;
   }
 
   .signup-form,
   .div-team-list,
   .container-btn {
-    max-width: 300px;
+    max-width: 320px;
+  }
+
+  .team-list-title {
+    margin-top: 1rem;
+  }
+
+  .team-list li{
+    padding: 0.6rem 0.5rem;
+    font-size: 0.9rem;
   }
 
   .btn-add {
@@ -374,7 +411,7 @@
   }
 
   .team-counter {
-    font-size: 0.85rem;
+    font-size: 0.7rem;
   }
 }
 
@@ -382,21 +419,30 @@
 @media (max-width: 360px) {
 
   .signup-team-title {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
   .signup-team-subtitle {
+    font-size: 0.7rem;
+  }
+
+  .signup-form-group label {
     font-size: 0.8rem;
   }
 
   .input-wrapper input {
-    padding: 0.8rem 0.7rem;
-    font-size: 0.9rem;
+    padding: 0.6rem 0.5rem;
+    font-size: 0.8rem;
   }
 
-  .team-list li {
-    padding: 0.8rem 0.7rem;
-    font-size: 0.9rem;
+  .input-league {
+    padding: 0.6rem 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .team-list li{
+    padding: 0.6rem 0.5rem;
+    font-size: 0.8rem;
   }
 
   .signup-form,
@@ -405,9 +451,19 @@
     max-width: 280px;
   }
 
+  .msg-validation {
+    font-size: 0.6rem;
+  }
+
+  .btn-add {
+  width: 1.4rem;
+  height: 1.4rem;
+  font-size: 0.95rem;
+}
+
   .container-btn button {
-    font-size: 0.9rem;
-    padding: 0.8rem;
+    font-size: 0.8rem;
+    padding: 0.7rem;
   }
 }
 
@@ -419,14 +475,14 @@
   }
 
   .signup-team-title {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     display: flex;
     justify-content: flex-start;
   }
 
   .signup-team-subtitle {
-    font-size: 0.65rem;
-    margin: 0.5rem 0 1rem 0;
+    font-size: 0.5rem;
+    margin: 0;
   }
 
   .signup-form,
@@ -436,49 +492,53 @@
   }
 
   .signup-form-group label {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
   }
 
   .input-wrapper input {
-    padding: 0.6rem 0.5rem;
-    font-size: 0.7rem;
+    padding: 0.5rem 0.4rem;
+    font-size: 0.5rem;
   }
 
-  .error-message {
-    color: #d9534f;
-    font-size: 0.6rem;
-}
+  .input-league {
+    padding: 0.5rem 0.4rem;
+    font-size: 0.5rem;
+  }
+
+  .team-list-title {
+    font-size: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .team-list li{
+    padding: 0.5rem 0.4rem;
+    font-size: 0.5rem;
+  }
+
+  .msg-validation {
+    font-size: 0.5rem;
+  }
 
   .btn-add {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.2rem;
+    height: 1.2rem;
     font-size: 0.7rem;
     right: 0.3rem;
   }
 
 
-  .team-list-title {
-    font-size: 0.7rem;
-    margin-top: 1rem;
-  }
-
-  .team-list li {
-    padding: 0.5rem 0.5rem;
-    font-size: 0.7rem;
-  }
-
   .team-counter {
-    font-size: 0.7rem;
-    margin: 1rem 0;
+    font-size: 0.5rem;
+    margin: 0.1rem 0 0 0;
   }
 
   .container-btn {
-    gap: 0.6rem;
-    margin-top: 1.2rem;
+    gap: 0.4rem;
+    margin-top: 0.8rem;
   }
 
   .container-btn button {
-    font-size: 0.75rem;
+    font-size: 0.6rem;
     padding: 0.5rem;
     border-radius: 6px;
   }
@@ -502,6 +562,10 @@
   /* Ajuste na lista para caber tudo */
   .team-list.scrollable {
     max-height: 100px;
+  }
+
+  .btn-remove-team {
+    font-size: 1rem;
   }
 }
 
