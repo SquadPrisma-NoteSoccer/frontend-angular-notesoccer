@@ -26,16 +26,39 @@
     <!-- Combo box de Ligas -->
     <div class="signup-form-group" data-cy="signup-form-league">
       <label for="league">Nome da Liga:</label>
-      <select id="league" formControlName="league" class="input-league" data-cy="input-league">
-        <option value="" disabled selected>Selecione uma liga</option>
-        <option *ngFor="let league of leagues" [value]="league">{{ league }}</option>
-      </select>
 
-      <div *ngIf="signupTeamForm.get('league')?.touched && signupTeamForm.get('league')?.hasError('required')" class="msg-validation">
-        A liga é obrigatória.
+      <input
+        id="league"
+        type="text"
+        list="leagueList"
+        placeholder="Selecione ou crie uma liga"
+        formControlName="league"
+        class="input-league"
+        (blur)="addLeagueIfNew()"
+        data-cy="input-league"
+      />
+
+      <datalist id="leagueList">
+        <option *ngFor="let league of leagues" [value]="league"></option>
+      </datalist>
+
+      <!-- Mensagens de validação para a liga -->
+      <div *ngIf="signupTeamForm.get('league')?.touched || signupTeamForm.get('league')?.dirty">
+        <div class="msg-validation" *ngIf="signupTeamForm.get('league')?.hasError('required')">
+          O nome da liga é obrigatório.
+        </div>
+        <div class="msg-validation" *ngIf="signupTeamForm.get('league')?.hasError('pattern')">
+          O nome da liga deve conter apenas letras e espaços (sem números ou caracteres especiais).
+        </div>
+        <div class="msg-validation" *ngIf="signupTeamForm.get('league')?.hasError('minlength')">
+          O nome da liga deve ter no mínimo 3 letras.
+        </div>
+        <div class="msg-validation" *ngIf="signupTeamForm.get('league')?.hasError('maxlength')">
+          O nome da liga deve ter no máximo 30 letras.
+        </div>
       </div>
-    </div>
 
+    </div>
 
 
     <!-- Nome do Time -->
@@ -94,16 +117,6 @@
         </p>
       </div>
 
-      <!-- Novo campo de Endereço -->
-      <div class="signup-form-group" data-cy="signup-form-address">
-        <label for="address">Endereço:</label>
-        <input id="address"
-           type="text"
-           placeholder="Digite o endereço do clube"
-           formControlName="address"
-           class="input-address"
-           data-cy="input-address" />
-      </div>
     </div>
   </form>
 

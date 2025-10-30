@@ -20,16 +20,47 @@ export class SignupTeamComponent {
 
   constructor(private fb: FormBuilder, private router: Router) {
     this.signupTeamForm = this.fb.group({
-      league: [''],
-      teamName: ['', [
+      league: ['', [
         Validators.required,
         Validators.pattern(/^[A-Za-zÀ-ÿ]+(?: [A-Za-zÀ-ÿ]+)*$/),
         Validators.minLength(3),
         Validators.maxLength(20)
       ]],
-      address: [""]
+      teamName: ['', [
+        Validators.required,
+        Validators.pattern(/^[A-Za-zÀ-ÿ]+(?: [A-Za-zÀ-ÿ]+)*$/),
+        Validators.minLength(3),
+        Validators.maxLength(20)
+      ]]
     });
   }
+
+  /** Adiciona uma nova liga se não existir ainda E se for válida */
+  addLeagueIfNew() {
+    const leagueControl = this.signupTeamForm.get('league');
+    if (!leagueControl) return;
+
+    const raw = String(leagueControl.value ?? '').trim();
+
+    // se campo vazio não faz nada (deixe o required ser exibido na validação final)
+    if (!raw) return;
+
+    // valida via form control: se inválido, não adiciona e deixa a mensagem aparecer
+    if (leagueControl.invalid) {
+      // opcional: forçar exibição dos erros
+      leagueControl.markAsTouched();
+    return;
+    }
+
+    // se válido e não existe, adiciona ao array de ligas
+    if (raw && !this.leagues.includes(raw)) {
+      this.leagues.push(raw);
+    }
+
+    // opcional: manter o valor selecionado (não resetar), ou resetar se preferir
+    // leagueControl.setValue(raw); // já está com raw
+  }
+
 
   // Método para adicionar o time à lista
   addTeam() {
