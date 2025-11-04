@@ -52,11 +52,11 @@ jobs:
         with:
           browser: ${{ matrix.browser }}
           record: true                      # ✅ envia os resultados ao Cypress Cloud
-          parallel: true                    # 🚀 executa em paralelo no Cloud
+          parallel: false                    # 🚀 executa em paralelo no Cloud
           group: "Tests - ${{ matrix.browser }}" # agrupa por navegador
           wait-on: "http://localhost:4201"
           wait-on-timeout: 120
-          command: npx cypress run --browser ${{ matrix.browser }} --record --parallel
+          command: npx cypress run --browser ${{ matrix.browser }} --record
         env:
           CYPRESS_BASE_URL: "http://localhost:4201"
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
