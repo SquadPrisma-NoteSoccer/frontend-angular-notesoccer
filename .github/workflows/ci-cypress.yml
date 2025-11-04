@@ -1,6 +1,7 @@
 name: Cypress Tests (Multi-Browser + Cloud)
 
 on:
+    pull_request:
     workflow_run:
         workflows: ["CI (PR - Frontend)"]
         types:
