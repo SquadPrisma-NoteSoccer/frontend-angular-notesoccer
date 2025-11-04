@@ -3,6 +3,7 @@ import { defineConfig } from 'cypress'
 export default defineConfig({
   e2e: {
     baseUrl: 'http://localhost:4201',
+    projectId: process.env['CYPRESS_PROJECT_ID'],    
     defaultCommandTimeout: 10000, // pode esperar até 10 segundos por comando
     video: true,
     screenshotOnRunFailure: true, // tira print automático em falhas
