@@ -1,12 +1,15 @@
 name: Cypress Tests (Multi-Browser + Cloud)
 
 on:
-  workflow_run:
-    workflows: ["CI (PR - Frontend)"]
-    types:
-      - completed
-  workflow_dispatch: # permite rodar manualmente pelo GitHub
-    inputs:
+    push:
+        branches:
+            - test/criação-pipeline-cypress
+  #workflow_run:
+    #workflows: ["CI (PR - Frontend)"]
+    #types:
+      #- completed
+    workflow_dispatch: # permite rodar manualmente pelo GitHub
+     inputs:
       browsers:
         description: "Escolher navegadores (chrome, edge, firefox, electron)"
         required: false
