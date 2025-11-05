@@ -1,0 +1,64 @@
+name: Cypress Tests (Multi-Browser + Cloud)
+
+on:
+    pull_request:
+        branches:
+            - develop
+    workflow_dispatch: # permite rodar manualmente pelo GitHub
+        inputs:
+            browsers:
+                description: "Escolher navegadores (chrome, edge, firefox, electron)"
+                required: false
+                default: "chrome"
+
+jobs:
+    cypress-run:
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                browser: [chrome] # 🧠 define os navegadores
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Use Node 20
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: npm
+
+            - name: Install dependencies
+              run: npm ci
+
+            # 🚀 Inicia o servidor Angular na porta 4201
+            - name: Start server
+              run: |
+                  npm start -- --port=4201 &
+                  npx wait-on http://localhost:4201
+
+            # 🧪 Executa os testes Cypress no navegador especificado
+            - name: Run Cypress tests (${{ matrix.browser }})
+              uses: cypress-io/github-action@v6
+              with:
+                  browser: ${{ matrix.browser }}
+                  record: true
+                  parallel: false
+                  group: "Tests - ${{ matrix.browser }}"
+                  wait-on: "http://localhost:4201"
+                  wait-on-timeout: 120
+              env:
+                  CYPRESS_BASE_URL: "http://localhost:4201"
+                  CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+                  CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+
+        #   # 💾 Upload de screenshots e vídeos (se falhar)
+        #   - name: Upload Cypress artifacts (${{ matrix.browser }})
+        #     if: failure()
+        #     uses: actions/upload-artifact@v4
+        #     with:
+        #       name: cypress-artifacts-${{ matrix.browser }}
+        #       path: |
+        #         cypress/screenshots
+        #         cypress/videos
