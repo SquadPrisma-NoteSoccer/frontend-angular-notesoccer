@@ -31,3 +31,44 @@ yarn-error.log*
 
 # evita voltar arquivo de diff gerado local
 /backup.patch
+
+# 🧪 Cypress
+# ==============================
+cypress/videos/
+cypress/screenshots/
+cypress/reports/
+cypress/downloads/
+cypress/logs/
+cypress/results/
+
+# Ignore plugins temporários e cache
+.cypress-cache/
+.cypress/
+
+# ==============================
+# ⚙️ Sistema Operacional
+# ==============================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+.nfs*
+
+# ==============================
+# 🧱 Logs e temporários
+# ==============================
+logs/
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
