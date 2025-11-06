@@ -17,6 +17,10 @@ publish = "dist/publish"
 command = "bash ./netlify-build.sh development"
 publish = "dist/publish"
 
+[context."branch:staging"]
+command = "bash ./netlify-build.sh development"
+publish = "dist/publish"
+
 [[redirects]]
 from = "/*"
 to = "/index.html"
