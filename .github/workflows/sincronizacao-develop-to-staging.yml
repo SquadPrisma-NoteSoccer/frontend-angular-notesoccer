@@ -1,4 +1,4 @@
-name: Sincronização Develop → Staging
+name: Sincronização Develop para Staging
 
 on:
   schedule:
