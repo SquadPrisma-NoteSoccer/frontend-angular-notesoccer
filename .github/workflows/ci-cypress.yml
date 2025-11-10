@@ -4,6 +4,7 @@ on:
     pull_request:
         branches:
             - develop
+            - staging
     workflow_dispatch: # permite rodar manualmente pelo GitHub
         inputs:
             browsers:
