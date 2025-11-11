@@ -76,7 +76,8 @@
         <button
           type="submit"
           class="btn-add"
-          [disabled]="signupTeamForm.invalid"
+          [disabled]="signupTeamForm.invalid || teams.length >= maxTeams"
+          [title]="teams.length >= maxTeams ? 'Limite de 20 times atingido' : 'Adicionar novo time'"
           data-cy="btn-add-team">
           <i class="fa-solid fa-plus"></i>
         </button>
@@ -121,15 +122,9 @@
   </form>
 
   <div class="container-btn" data-cy="container-btn">
-    <div class="div-btn-players" data-cy="div-btn-players">
-      <button class="btn-players" data-cy="btn-players">
-        Cadastre os jogadores<i class="fa-solid fa-chevron-right"></i>
-      </button>
-    </div>
-
     <div class="div-btn-matches" data-cy="div-btn-matches">
-      <button disabled class="btn-matches" data-cy="btn-matches">
-        Cadastre as partidas<i class="fa-solid fa-chevron-right"></i>
+      <button class="btn-matches" data-cy="btn-matches">
+        <i class="fa-regular fa-calendar"></i>Cadastrar partidas
       </button>
     </div>
   </div>

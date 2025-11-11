@@ -1,0 +1,240 @@
+.login-container {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  background-color: #3D8852;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 2rem 1rem;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ===== Botão superior ===== */
+.div-btn-welcome {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.div-btn-welcome button {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* ===== Títulos ===== */
+.login-title h1{
+  font-size: 2.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.login-text1 h2{
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.login-text2 h3 {
+  font-size: 1.2rem;
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  font-weight: 400;
+}
+
+/* ===== Formulário ===== */
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 350px;
+  gap: 1rem;
+}
+
+/* Campos do formulário */
+.signup-form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  width: 100%;
+}
+
+.signup-form-group label {
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+.signup-form-group input {
+  width: 100%;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  font-size: 1rem;
+}
+
+/* Mensagens de validação */
+.msg-validation {
+  font-size: 0.8rem;
+  color: #b1212d;
+  margin-top: 0.3rem;
+}
+
+/* ===== Botões ===== */
+.container-button {
+  display: flex;
+  flex-direction: column;
+  margin-top: 3rem;
+  width: 100%;
+  max-width: 350px;
+}
+
+.container-button button {
+  width: 100%;
+  background-color: #FF9547;
+  color: #fff;
+  border: none;
+  padding: 0.9rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: 0.2s;
+}
+
+
+.login-button button:hover {
+  background-color: #d66a1ddc;
+}
+
+.login-button button i {
+  position: absolute;
+  left: 1rem;
+  font-size: 1.3rem;
+  color: #fff;
+}
+
+.div-esqueci-senha {
+  display: flex;
+  margin-top: 0.5rem;
+}
+
+.div-esqueci-senha a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 0.8rem;
+}
+
+/* ===== Responsividade ===== */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 0 2rem;
+    gap: 2rem;
+  }
+
+  .login-title h1 {
+    font-size: 2.5rem;
+  }
+
+  .login-text1 h2 {
+    font-size: 1.4rem;
+  }
+
+
+  .login-text2 h3 {
+    font-size: 1rem;
+    font-weight: 300;
+  }
+
+  .signup-form-group input {
+    font-size: 0.95rem;
+    padding: 0.8rem;
+  }
+
+  .login-button button {
+    font-size: 1.1rem;
+    padding: 0.8rem;
+  }
+}
+
+@media (max-width: 360px) {
+
+  .login-container {
+    gap: 2rem;
+  }
+
+  .login-title h1 {
+    font-size: 1.9rem;
+  }
+
+  .login-text1 h2 {
+    font-size: 1.2rem;
+  }
+
+  .login-text2 h3 {
+    font-size: 1rem;
+  }
+
+  .login-button button {
+    font-size: 0.9rem;
+    padding: 0.9rem;
+  }
+}
+
+@media (max-width: 320px) {
+
+  .login-container {
+    gap: 0.7rem;
+  }
+
+  .login-title h1 {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .login-text1 h2 {
+    font-size: 1rem;
+  }
+
+  .login-text2 h3 {
+    font-size: 0.8rem;
+  }
+
+  .signup-form {
+    margin-top: 1.5rem;
+  }
+
+  .signup-form-group label {
+    font-size: 0.8rem;
+    color: #fff;
+  }
+
+  .signup-form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  .container-button {
+    margin-top: 1rem;
+  }
+
+  .login-button button {
+    font-size: 0.9rem;
+    padding: 0.9rem;
+  }
+
+  .msg-validation {
+    font-size: 0.7rem;
+  }
+}

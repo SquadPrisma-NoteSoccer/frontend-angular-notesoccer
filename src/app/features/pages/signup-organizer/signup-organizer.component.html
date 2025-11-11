@@ -1,8 +1,8 @@
 <div class="signup-container" data-cy="signup-container">
 
-  <!-- Div do botão de voltar apenas para mobile -->
+  <!-- Div do botão de ir para tela inicial apenas para mobile -->
   <div class="div-btn-welcome" data-cy="div-btn-welcome">
-    <button (click)="goWelcome()" data-cy="btn-back">
+    <button (click)="goWelcome()" data-cy="btn-welcome">
       <i class="fa-solid fa-xmark"></i>
     </button>
   </div>
@@ -18,22 +18,22 @@
   <form class="signup-form" [formGroup]="signupForm" (ngSubmit)="onSubmit()" data-cy="signup-form">
     <!-- Nome -->
     <div class="signup-form-group" data-cy="signup-form-group-name">
-      <label for="name">Nome</label>
-      <input id="name" type="text" placeholder="Não é permitido números ou caracteres especiais"
-      formControlName="name" data-cy="input-name"/>
+      <label for="nome">Nome</label>
+      <input id="nome" type="text" placeholder="Não é permitido números ou caracteres especiais"
+      formControlName="nome" data-cy="input-name"/>
 
       <!-- Mensagens de atenção para os campos -->
-      <div *ngIf="signupForm.get('name')?.touched">
-        <div class="msg-validation" *ngIf="signupForm.get('name')?.hasError('required')">
+      <div *ngIf="signupForm.get('nome')?.touched">
+        <div class="msg-validation" *ngIf="signupForm.get('nome')?.hasError('required')">
           O nome é obrigatório.
         </div>
-        <div class="msg-validation" *ngIf="signupForm.get('name')?.hasError('pattern')">
+        <div class="msg-validation" *ngIf="signupForm.get('nome')?.hasError('pattern')">
           O nome deve conter apenas letras e espaços.
         </div>
-        <div class="msg-validation" *ngIf="signupForm.get('name')?.hasError('minlength')">
+        <div class="msg-validation" *ngIf="signupForm.get('nome')?.hasError('minlength')">
           O nome deve ter no mínimo 3 caracteres.
         </div>
-        <div class="msg-validation" *ngIf="signupForm.get('name')?.hasError('maxlength')">
+        <div class="msg-validation" *ngIf="signupForm.get('nome')?.hasError('maxlength')">
           O nome deve ter no máximo 60 caracteres.
         </div>
       </div>
@@ -41,19 +41,19 @@
 
     <!-- Apelido -->
     <div class="signup-form-group" data-cy="signup-form-group-nickname">
-      <label for="nickname">Apelido</label>
-      <input id="nickname" type="text" placeholder="Digite seu apelido"
-      formControlName="nickname" data-cy="input-nickname"/>
+      <label for="apelido">Apelido</label>
+      <input id="apelido" type="text" placeholder="Digite seu apelido"
+      formControlName="apelido" data-cy="input-nickname"/>
 
       <!-- Mensagens de atenção para os campos -->
-      <div *ngIf="signupForm.get('nickname')?.touched">
-        <div class="msg-validation" *ngIf="signupForm.get('nickname')?.hasError('pattern')">
+      <div *ngIf="signupForm.get('apelido')?.touched">
+        <div class="msg-validation" *ngIf="signupForm.get('apelido')?.hasError('pattern')">
           O Apelido deve conter apenas letras e espaços.
         </div>
-        <div class="msg-validation" *ngIf="signupForm.get('nickname')?.hasError('minlength')">
+        <div class="msg-validation" *ngIf="signupForm.get('apelido')?.hasError('minlength')">
           O Apelido deve ter no mínimo 3 caracteres.
         </div>
-        <div class="msg-validation" *ngIf="signupForm.get('nickname')?.hasError('maxlength')">
+        <div class="msg-validation" *ngIf="signupForm.get('apelido')?.hasError('maxlength')">
           O Apelido deve ter no máximo 60 caracteres.
         </div>
       </div>
@@ -95,16 +95,16 @@
 
     <!-- Senha -->
     <div class="signup-form-group" data-cy="signup-form-group-password">
-      <label for="password">Senha</label>
-      <input id="password" type="password" placeholder="De 8 a 15 caracteres (letras e números)"
-      formControlName="password" data-cy="input-password"/>
+      <label for="senha">Senha</label>
+      <input id="senha" type="senha" placeholder="De 8 a 15 caracteres (letras e números)"
+      formControlName="senha" data-cy="input-password"/>
 
       <!-- Mensagens de atenção para os campos -->
-      <div *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid">
-        <div class="msg-validation" *ngIf="signupForm.get('password')?.hasError('required')">A senha é obrigatória.</div>
-        <div class="msg-validation" *ngIf="signupForm.get('password')?.hasError('minlength')">A senha deve ter no mínimo 8 caracteres.</div>
-        <div class="msg-validation" *ngIf="signupForm.get('password')?.hasError('maxlength')">A senha deve ter no máximo 15 caracteres.</div>
-        <div class="msg-validation" *ngIf="signupForm.get('password')?.hasError('pattern')">A senha deve conter apenas letras, números e caracteres especiais válidos.</div>
+      <div *ngIf="signupForm.get('senha')?.touched && signupForm.get('senha')?.invalid">
+        <div class="msg-validation" *ngIf="signupForm.get('senha')?.hasError('required')">A senha é obrigatória.</div>
+        <div class="msg-validation" *ngIf="signupForm.get('senha')?.hasError('minlength')">A senha deve ter no mínimo 8 caracteres.</div>
+        <div class="msg-validation" *ngIf="signupForm.get('senha')?.hasError('maxlength')">A senha deve ter no máximo 15 caracteres.</div>
+        <div class="msg-validation" *ngIf="signupForm.get('senha')?.hasError('pattern')">A senha deve conter apenas letras, números e caracteres especiais válidos.</div>
       </div>
     </div>
 
@@ -117,7 +117,7 @@
       </div>
 
       <div class="login-button" data-cy="login-button">
-        <button data-cy="login-btn">
+        <button (click)="goLogin()" data-cy="login-btn">
           <i class="fa-solid fa-chevron-right"></i> Já tem conta? ACESSAR
         </button>
       </div>
