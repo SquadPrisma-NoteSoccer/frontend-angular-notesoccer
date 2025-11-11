@@ -1,0 +1,68 @@
+<div class="login-container" data-cy="login-container">
+
+  <!-- Botão de voltar -->
+  <div class="div-btn-welcome" data-cy="div-btn-welcome">
+    <button (click)="goWelcome()" data-cy="btn-welcome">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <div class="login-title" data-cy="login-title">
+    <h1>NoteSoccer</h1>
+  </div>
+
+  <div class="login-text1" data-cy="login-text1">
+    <h2>Que bom que você voltou!</h2>
+  </div>
+
+  <div class="login-text2" data-cy="login-text2">
+    <h3>Entre na sua conta</h3>
+  </div>
+
+  <form class="signup-form" [formGroup]="loginForm" (ngSubmit)="onLogin()" data-cy="login-form">
+    <!-- Email -->
+    <div class="signup-form-group" data-cy="login-form-group-email">
+      <label for="email">E-mail</label>
+      <input id="email" type="email" placeholder="exemplo@provedor.com.br"
+             formControlName="email" data-cy="input-email"/>
+
+      <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+        <div class="msg-validation" *ngIf="loginForm.get('email')?.hasError('required')">
+          O email é obrigatório.
+        </div>
+        <div class="msg-validation" *ngIf="loginForm.get('email')?.hasError('email')">
+          Formato de email inválido.
+        </div>
+      </div>
+    </div>
+
+    <!-- Senha -->
+    <div class="signup-form-group" data-cy="login-form-group-password">
+      <label for="senha">Senha</label>
+      <input id="senha" type="password" placeholder="Digite sua senha"
+             formControlName="senha" data-cy="input-password"/>
+
+      <div *ngIf="loginForm.get('senha')?.touched && loginForm.get('senha')?.invalid">
+        <div class="msg-validation" *ngIf="loginForm.get('senha')?.hasError('required')">
+          A senha é obrigatória.
+        </div>
+        <div class="msg-validation" *ngIf="loginForm.get('senha')?.hasError('minlength')">
+          A senha deve ter no mínimo 8 caracteres.
+        </div>
+      </div>
+    </div>
+
+    <div class="div-esqueci-senha">
+      <a href="">Esqueci a Senha</a>
+    </div>
+
+    <!-- Botões -->
+    <div class="container-button" data-cy="login-container-button">
+      <div class="login-button" data-cy="login-button">
+        <button type="submit" data-cy="login-btn">
+          <i class="fa-solid fa-chevron-right"></i> Acessar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

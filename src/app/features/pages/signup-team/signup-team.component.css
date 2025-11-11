@@ -125,6 +125,12 @@
   background-color: #d66a1ddc;
 }
 
+.btn-add:disabled {
+  background-color: #C0B6AF;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
 /* ===== Título da lista ===== */
 .div-team-list {
   width: 100%;
@@ -241,34 +247,19 @@
 }
 
 /* Botão de cadastro */
-.div-btn-players button {
-  background-color: #FF9547;
-  color: #ffffff;
-  position: relative;
-}
-
-.div-btn-players button:hover {
-  background-color: #d66a1ddc;
-}
-
 .div-btn-matches button {
-  background-color: #C0B6AF;
+  background-color: #FF9547;
   color: #fff;
-  cursor: not-allowed;
   position: relative;
 }
 
-
-.div-btn-players button i{
-  position: absolute;
-  right: 1.5rem;
-  font-size: 1.1rem;
-  color: #fff;
+.div-btn-matches button:hover {
+  background-color: #d66a1ddc;
 }
 
 .div-btn-matches button i{
   position: absolute;
-  right: 1.5rem;
+  left: 1rem;
   font-size: 1.1rem;
   color: #fff;
 }
@@ -346,7 +337,6 @@
     top: 0.8rem;
   }
 
-  .div-btn-players button i,
   .div-btn-matches button i {
     right: 1rem;
     font-size: 1rem;
@@ -553,7 +543,6 @@
     font-size: 1.1rem;
   }
 
-  .div-btn-players button i,
   .div-btn-matches button i {
     right: 1rem;
     font-size: 1rem;
