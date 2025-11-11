@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SignupOrganizerService } from '../../services/signup-organizer.service';
+import { Organizer } from '../../models/organizer';
 
 
 @Component({
@@ -14,16 +16,20 @@ export class SignupOrganizerComponent {
 
   signupForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router){
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private signupOrganizerService: SignupOrganizerService
+  ){
     this.signupForm = this.fb.group({
       //campos que devem ser validados e outros opcionais
-      name: ['', [
+      nome: ['', [
         Validators.required,
         Validators.pattern(/^[A-Za-zÀ-ÿ\s]+$/),
         Validators.minLength(3),
         Validators.maxLength(60)
       ]],
-      nickname: ['', [
+      apelido: ['', [
         Validators.pattern(/^[A-Za-zÀ-ÿ\s]+$/),
         Validators.minLength(3),
         Validators.maxLength(60)
@@ -36,9 +42,10 @@ export class SignupOrganizerComponent {
         Validators.maxLength(60)
       ]],
       whatsapp: ['', [
-        Validators.pattern(/^[1-9]{2}[0-9]{8,9}$/)
+        Validators.required,
+        Validators.pattern(/^[1-9]{2}\d{8,9}$/)
       ]],
-      password: ['', [
+      senha: ['', [
         Validators.required,
         Validators.minLength(8),
         Validators.maxLength(15),
@@ -51,19 +58,35 @@ export class SignupOrganizerComponent {
 
   //metodo de cadastro se estiver válido, exibe no console
   onSubmit() {
-    if(this.signupForm.valid) {
-      console.log('Organizador cadastrado ', this.signupForm.value);
+    if (this.signupForm.valid) {
+      const organizer: Organizer = this.signupForm.value;
+      console.log('Enviando para o backend:', organizer);
 
-      this.router.navigate(['/signup-success']);
-    }else {
+      this.signupOrganizerService.registerOrganizer(organizer).subscribe({
+        next: (response) => {
+          console.log('Organizador cadastrado com sucesso:', response);
+          alert(`Organizador cadastrado com sucesso! ID: ${response.id}`);
+          this.router.navigate(['/signup-success']);
+        },
+        error: (err) => {
+          console.error('Erro ao cadastrar organizador:', err);
+          alert('Erro ao cadastrar organizador. Verifique os dados e tente novamente.');
+        }
+      });
+
+    } else {
       alert('Preencha todos os campos obrigatórios corretamente.');
     }
   }
+
 
   //metodo para voltar para a tela de boas-vindas
   goWelcome() {
     this.router.navigate(['']);
   }
 
+  goLogin() {
+  this.router.navigate(['/login-organizer']);
+  }
 
 }
