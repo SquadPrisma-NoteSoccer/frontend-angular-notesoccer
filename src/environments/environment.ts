@@ -9,6 +9,6 @@ const runtime: Record<string, any> =
 
 export const environment = {
   production: false,
-  apiUrl: (runtime['NG_APP_API_BASE_URL'] as string) || 'http://localhost:8080',
+  apiUrl: (runtime['NG_APP_API_BASE_URL'] as string) || 'https://rankings-camps-cloud-hrs.trycloudflare.com',
   // apiUrl: 'https://drainage-joke-territories-incorporate.trycloudflare.com',
 };
