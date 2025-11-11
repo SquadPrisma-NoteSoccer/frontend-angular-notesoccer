@@ -1,5 +1,14 @@
+declare global {
+  interface Window {
+    __env?: Record<string, any>;
+  }
+}
+
+const runtime: Record<string, any> =
+  typeof window !== 'undefined' && window.__env ? window.__env : {};
+
 export const environment = {
   production: false,
-  apiUrl: (window as any).__env?.NG_APP_API_BASE_URL ?? 'http://localhost:8080',
+  apiUrl: (runtime['NG_APP_API_BASE_URL'] as string) || 'http://localhost:8080',
   // apiUrl: 'https://drainage-joke-territories-incorporate.trycloudflare.com',
 };
