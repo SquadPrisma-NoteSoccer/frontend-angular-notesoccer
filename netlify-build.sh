@@ -3,17 +3,54 @@ set -euo pipefail
 
 MODE="${1:-development}"
 OUT="dist/notesoccer"
+ENV_FILE="src/assets/env.js"
 
+echo ">>> PWD: $(pwd)"
+echo ">>> Build mode: ${MODE}"
+echo ">>> Publish dir target: dist/publish"
+
+# 10 Corrige o caminho se o Netlify executar dentro de /src
+if [ -d "assets" ] && [ -f "assets/env.js" ]; then
+  ENV_FILE="assets/env.js"
+elif [ -f "src/assets/env.js" ]; then
+  ENV_FILE="src/assets/env.js"
+elif [ -f "../src/assets/env.js" ]; then
+  ENV_FILE="../src/assets/env.js"
+else
+  echo "ERRO: env.js não encontrado nos caminhos esperados."
+  pwd
+  ls -la || true
+  ls -la src || true
+  exit 2
+fi
+
+echo ">>> env.js localizado em: ${ENV_FILE}"
+
+if [ -z "${NG_APP_API_BASE_URL:-}" ]; then
+  echo "ERRO: variável NG_APP_API_BASE_URL não definida no ambiente do Netlify."
+  echo "Defina em Site settings -> Build & deploy -> Environment."
+  exit 2
+fi
+
+# 2) Injeção da variável no env.js
+echo ">>> Injetando NG_APP_API_BASE_URL em ${ENV_FILE}"
+sed -i "s|##NG_APP_API_BASE_URL##|${NG_APP_API_BASE_URL}|g" "$ENV_FILE"
+echo ">>> Primeiras linhas do env.js após replace:"
+head -n 5 "$ENV_FILE" || true
+
+# 3) Instala dependências
 echo ">>> Install deps"
 if [ -f package-lock.json ]; then npm ci; else npm install; fi
 
-echo ">>> Build Angular ($MODE)"
+# 4) Build Angular
+echo ">>> Build Angular (${MODE})"
 if [ "$MODE" = "production" ]; then
   npx ng build --configuration=production --output-path="$OUT"
 else
   npx ng build --configuration=development --output-path="$OUT" --no-prerender
 fi
 
+# 5) Descobrir index gerado para montar dist/publish
 echo ">>> After build, show html candidates (first 3 levels)"
 find dist -maxdepth 3 -type f -name "*.html" -print || true
 
@@ -41,7 +78,7 @@ cp -r "${PUB_DIR}"/. dist/publish/
 echo ">>> Final publish content (before rename):"
 ls -la dist/publish
 
-# 💡 Se só existir index.csr.html, renomeia para index.html
+# Se só existir index.csr.html, renomeia para index.html
 if [ -f dist/publish/index.csr.html ] && [ ! -f dist/publish/index.html ]; then
   echo ">>> Renaming index.csr.html -> index.html"
   mv dist/publish/index.csr.html dist/publish/index.html
@@ -49,3 +86,6 @@ fi
 
 echo ">>> Final publish content (after rename):"
 ls -la dist/publish
+
+# 6) Dica de validação
+echo ">>> Dica: após o deploy, abra /assets/env.js e confirme a URL injetada."
