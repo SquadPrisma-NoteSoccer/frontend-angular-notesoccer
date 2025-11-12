@@ -1,38 +1,26 @@
 [build]
-command = """
-sed -i 's|##NG_APP_API_BASE_URL##|'\"$NG_APP_API_BASE_URL\"'|g' src/assets/env.js && \
-bash ./netlify-build.sh development
-"""
+command = "bash ./netlify-build.sh development"
 publish = "dist/publish"
 
 [build.environment]
 NODE_VERSION = "20"
 
 [context.production]
-command = """
-sed -i 's|##NG_APP_API_BASE_URL##|'\"$NG_APP_API_BASE_URL\"'|g' src/assets/env.js && \
-bash ./netlify-build.sh production
-"""
+command = "bash ./netlify-build.sh production"
 publish = "dist/publish"
 
 [context.production.environment]
 # vazio, para permitir sobrescrever pela UI
 
 [context.branch-deploy]
-command = """
-sed -i 's|##NG_APP_API_BASE_URL##|'\"$NG_APP_API_BASE_URL\"'|g' src/assets/env.js && \
-bash ./netlify-build.sh development
-"""
+command = "bash ./netlify-build.sh development"
 publish = "dist/publish"
 
 [context.branch-deploy.environment]
 # NG_APP_API_BASE_URL será lido da UI
 
 [context.deploy-preview]
-command = """
-sed -i 's|##NG_APP_API_BASE_URL##|'\"$NG_APP_API_BASE_URL\"'|g' src/assets/env.js && \
-bash ./netlify-build.sh development
-"""
+command = "bash ./netlify-build.sh development"
 publish = "dist/publish"
 
 [[redirects]]
