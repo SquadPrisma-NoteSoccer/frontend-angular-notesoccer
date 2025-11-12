@@ -9,15 +9,22 @@ echo ">>> PWD: $(pwd)"
 echo ">>> Build mode: ${MODE}"
 echo ">>> Publish dir target: dist/publish"
 
-# 1) Sanity checks
-if [ ! -f "$ENV_FILE" ]; then
-  echo "ERRO: $ENV_FILE não encontrado."
-  echo "Dica: confirme que foi commitado e o caminho é exatamente 'src/assets/env.js'."
-  echo "Listando src/ e src/assets/ (se existirem):"
+# 10 Corrige o caminho se o Netlify executar dentro de /src
+if [ -d "assets" ] && [ -f "assets/env.js" ]; then
+  ENV_FILE="assets/env.js"
+elif [ -f "src/assets/env.js" ]; then
+  ENV_FILE="src/assets/env.js"
+elif [ -f "../src/assets/env.js" ]; then
+  ENV_FILE="../src/assets/env.js"
+else
+  echo "ERRO: env.js não encontrado nos caminhos esperados."
+  pwd
+  ls -la || true
   ls -la src || true
-  ls -la src/assets || true
   exit 2
 fi
+
+echo ">>> env.js localizado em: ${ENV_FILE}"
 
 if [ -z "${NG_APP_API_BASE_URL:-}" ]; then
   echo "ERRO: variável NG_APP_API_BASE_URL não definida no ambiente do Netlify."
