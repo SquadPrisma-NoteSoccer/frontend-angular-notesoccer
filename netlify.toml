@@ -9,15 +9,17 @@ NODE_VERSION = "20"
 command = "bash ./netlify-build.sh production"
 publish = "dist/publish"
 
+[context.production.environment]
+# vazio, para permitir sobrescrever pela UI
+
 [context.branch-deploy]
 command = "bash ./netlify-build.sh development"
 publish = "dist/publish"
 
-[context.deploy-preview]
-command = "bash ./netlify-build.sh development"
-publish = "dist/publish"
+[context.branch-deploy.environment]
+# NG_APP_API_BASE_URL será lido da UI
 
-[context."branch:staging"]
+[context.deploy-preview]
 command = "bash ./netlify-build.sh development"
 publish = "dist/publish"
 
