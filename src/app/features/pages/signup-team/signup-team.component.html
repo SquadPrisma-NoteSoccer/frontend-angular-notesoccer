@@ -105,7 +105,7 @@
 
         <!-- Lista de times adicionados -->
         <ul class="team-list" [ngClass]="{'scrollable': teams.length > 2}" *ngIf="teams.length > 0" data-cy="team-list">
-          <li *ngFor="let team of teams; let i = index">{{ team }}
+          <li *ngFor="let team of teams; let i = index">{{ team.nome }}
             <button class="btn-remove-team" (click)="removeTeam(i)" data-cy="btn-remove-team">
               <i class="fa-solid fa-xmark"></i>
             </button>
@@ -123,8 +123,8 @@
 
   <div class="container-btn" data-cy="container-btn">
     <div class="div-btn-matches" data-cy="div-btn-matches">
-      <button class="btn-matches" data-cy="btn-matches">
-        <i class="fa-regular fa-calendar"></i>Cadastrar partidas
+      <button class="btn-matches" (click)="salvarLigaETime()" [disabled]="isLoading" data-cy="btn-matches">
+        <i class="fa-regular fa-calendar"></i>{{ isLoading ? 'Enviando...' : 'Cadastrar partidas' }}
       </button>
     </div>
   </div>

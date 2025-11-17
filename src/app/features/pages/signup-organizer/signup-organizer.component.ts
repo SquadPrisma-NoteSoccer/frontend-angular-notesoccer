@@ -15,6 +15,7 @@ import { Organizer } from '../../models/organizer';
 export class SignupOrganizerComponent {
 
   signupForm: FormGroup;
+  showPassword = false;
 
   constructor(
     private fb: FormBuilder,
@@ -62,9 +63,13 @@ export class SignupOrganizerComponent {
       const organizer: Organizer = this.signupForm.value;
       console.log('Enviando para o backend:', organizer);
 
-      this.signupOrganizerService.registerOrganizer(organizer).subscribe({
+      this.signupOrganizerService.RegistrarOrganizador(organizer).subscribe({
         next: (response) => {
           console.log('Organizador cadastrado com sucesso:', response);
+
+          // ⭐ SALVAR O ORGANIZADOR NO LOCALSTORAGE ⭐
+          localStorage.setItem('organizer', JSON.stringify(response));
+
           alert(`Organizador cadastrado com sucesso! ID: ${response.id}`);
           this.router.navigate(['/signup-success']);
         },
@@ -88,5 +93,10 @@ export class SignupOrganizerComponent {
   goLogin() {
   this.router.navigate(['/login-organizer']);
   }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
 
 }

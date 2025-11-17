@@ -109,6 +109,27 @@
   margin-top: 0.3rem;
 }
 
+.senha-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.senha-wrapper input {
+  width: 100%;
+  padding-right: 40px; /* espaço para o botão */
+}
+
+.toggle-btn {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+
 
 .container-button {
   display: flex;
