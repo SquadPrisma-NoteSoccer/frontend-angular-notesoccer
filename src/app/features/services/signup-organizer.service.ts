@@ -12,7 +12,7 @@ export class SignupOrganizerService {
 
   constructor(private http: HttpClient) {}
 
-  registerOrganizer(organizer: Organizer): Observable<Organizer> {
+  RegistrarOrganizador(organizer: Organizer): Observable<Organizer> {
     return this.http.post<Organizer>(this.url, organizer);
   }
 }

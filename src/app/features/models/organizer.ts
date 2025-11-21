@@ -1,5 +1,5 @@
 export interface Organizer {
-  id?: number;
+  id?: string;
   nome: string;
   email: string;
   senha: string;
