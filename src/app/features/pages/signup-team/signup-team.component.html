@@ -21,7 +21,7 @@
   </div>
 
   <!-- Formulário -->
-  <form [formGroup]="signupTeamForm" (ngSubmit)="addTeam()" class="signup-form" data-cy="signup-form">
+  <form [formGroup]="signupTeamForm" (ngSubmit)="AdicionaTimeLista()" class="signup-form" data-cy="signup-form">
 
     <!-- Combo box de Ligas -->
     <div class="signup-form-group" data-cy="signup-form-league">
@@ -34,7 +34,7 @@
         placeholder="Selecione ou crie uma liga"
         formControlName="league"
         class="input-league"
-        (blur)="addLeagueIfNew()"
+        (blur)="adicionaLiga()"
         data-cy="input-league"
       />
 

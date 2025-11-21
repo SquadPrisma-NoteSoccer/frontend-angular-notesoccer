@@ -67,7 +67,7 @@ export class SignupOrganizerComponent {
         next: (response) => {
           console.log('Organizador cadastrado com sucesso:', response);
 
-          // ⭐ SALVAR O ORGANIZADOR NO LOCALSTORAGE ⭐
+          // SALVAR O ORGANIZADOR NO LOCALSTORAGE
           localStorage.setItem('organizer', JSON.stringify(response));
 
           alert(`Organizador cadastrado com sucesso! ID: ${response.id}`);
@@ -75,6 +75,13 @@ export class SignupOrganizerComponent {
         },
         error: (err) => {
           console.error('Erro ao cadastrar organizador:', err);
+
+          // 🔍 Verifica se o erro é de e-mail duplicado
+          if (err.status === 409 && err.error?.code === "EMAIL_ALREADY_EXISTS") {
+            alert('Este e-mail já está cadastrado. Tente outro.');
+          return;
+          }
+
           alert('Erro ao cadastrar organizador. Verifique os dados e tente novamente.');
         }
       });

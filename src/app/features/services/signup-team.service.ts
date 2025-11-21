@@ -14,12 +14,16 @@ export class SignupTeamService {
   constructor(private http: HttpClient) { }
 
   /** Cria um novo time dentro de uma liga */
-  RegistrarTime(ligaId: string, team: Team) {
+  /*RegistrarTime(ligaId: string, team: Team) {
     return this.http.post(`${this.url}/${ligaId}/times`, {
       ligaId: ligaId,
       nome: team.nome
     });
-  }
+  }*/
 
+  // ✅ Cadastro em lote (nova rota)
+  cadastrarTimes(ligaId: string, times: { nome: string }[]): Observable<any> {
+    return this.http.post(`${this.url}/${ligaId}/times/lote`, times);
+  }
 
 }
