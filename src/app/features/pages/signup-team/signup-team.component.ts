@@ -106,6 +106,64 @@ export class SignupTeamComponent {
     this.teams.splice(index, 1);
   }
 
+<<<<<<< Updated upstream
+=======
+  salvarLigaETime() {
+    const leagueName = this.signupTeamForm.get('league')?.value?.trim();
+    if (!leagueName) {
+      alert('O nome da liga é obrigatório.');
+      return;
+    }
+
+    if (this.teams.length === 0) {
+      alert('Cadastre pelo menos um time antes de continuar.');
+      return;
+    }
+
+    this.isLoading = true;
+
+    this.leagueService.registrarLiga(leagueName).subscribe({
+      next: ligaCriada => {
+        console.log('Liga criada:', ligaCriada);
+
+        const ligaId = ligaCriada.id;
+
+        //Monta exatamente no formato do Swagger
+        const payload = this.teams.map(team => ({
+          nome: team.nome
+        }));
+
+        this.teamService.cadastrarTimes(ligaId!, payload).subscribe({
+          next: () => {
+            alert(`Liga "${leagueName}" criada com ${this.teams.length} times!`);
+
+            // Limpa a lista de times
+            this.teams = [];
+
+            // Limpa o campo do input de time
+            this.signupTeamForm.get('teamName')?.reset();
+
+            // Limpar a liga
+            this.signupTeamForm.get('league')?.reset();
+
+            this.isLoading = false;
+          },
+          error: err => {
+            console.error('Erro ao cadastrar times em lote:', err);
+            alert('Liga criada, mas houve erro ao cadastrar os times.');
+            this.isLoading = false;
+          }
+        });
+      },
+      error: err => {
+        console.error('Erro ao criar liga:', err);
+        alert('Erro ao cadastrar liga.');
+        this.isLoading = false;
+      }
+    });
+  }
+
+>>>>>>> Stashed changes
   //metodo para voltar para a tela anterior
   goBack() {
     this.router.navigate(['signup-success']);

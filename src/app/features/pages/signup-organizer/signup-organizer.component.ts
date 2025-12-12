@@ -64,9 +64,27 @@ export class SignupOrganizerComponent {
 
       this.signupOrganizerService.registerOrganizer(organizer).subscribe({
         next: (response) => {
+<<<<<<< Updated upstream
           console.log('Organizador cadastrado com sucesso:', response);
           alert(`Organizador cadastrado com sucesso! ID: ${response.id}`);
+=======
+
+          console.log('Resposta do backend:', response);
+
+          // Salvar o organizador completo
+          localStorage.setItem('organizer', JSON.stringify(response));
+
+          // Salvar o token
+          if (response.token) {
+            localStorage.setItem('token', response.token);
+          }
+
+
+
+          alert(`Organizador cadastrado com sucesso!`);
+>>>>>>> Stashed changes
           this.router.navigate(['/signup-success']);
+
         },
         error: (err) => {
           console.error('Erro ao cadastrar organizador:', err);

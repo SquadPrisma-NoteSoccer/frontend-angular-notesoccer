@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class SignupOrganizerService {
-  private url = `${environment.apiUrl}/api/v1/orquestrador/usuarios`;
+  private url = `${environment.apiUrl}/api/v1/auth/signup`;
 
   constructor(private http: HttpClient) {}
 
