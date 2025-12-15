@@ -3,7 +3,7 @@ name: Cypress Tests (Chrome + Cloud)
 on:
   push:
         branches:
-            - 'test/**'
+            - test/**
         paths:
             - 'cypress/**'
             - 'package.json'
