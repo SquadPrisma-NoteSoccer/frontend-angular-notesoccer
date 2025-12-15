@@ -96,8 +96,21 @@
     <!-- Senha -->
     <div class="signup-form-group" data-cy="signup-form-group-password">
       <label for="senha">Senha</label>
-      <input id="senha" type="senha" placeholder="De 8 a 15 caracteres (letras e números)"
-      formControlName="senha" data-cy="input-password"/>
+      <div class="senha-wrapper">
+    <input
+      id="senha"
+      [type]="showPassword ? 'text' : 'password'"
+      placeholder="De 8 a 15 caracteres (letras e números)"
+      formControlName="senha"
+      data-cy="input-password"
+    />
+
+    <!-- Ícone de olho -->
+    <button type="button" class="toggle-btn" (click)="togglePasswordVisibility()">
+      <span *ngIf="showPassword"><i class="fa-solid fa-eye"></i></span>
+      <span *ngIf="!showPassword"><i class="fa-solid fa-eye-slash"></i></span>
+    </button>
+  </div>
 
       <!-- Mensagens de atenção para os campos -->
       <div *ngIf="signupForm.get('senha')?.touched && signupForm.get('senha')?.invalid">

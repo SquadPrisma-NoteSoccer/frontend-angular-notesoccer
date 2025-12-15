@@ -2,7 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { SignupLeagueService } from '../../services/signup-league.service';
+import { SignupTeamService } from '../../services/signup-team.service';
+import { Team } from '../../models/team';
 
 @Component({
   selector: 'app-signup-team',
@@ -13,59 +15,61 @@ import { Router } from '@angular/router';
 export class SignupTeamComponent {
 
   signupTeamForm: FormGroup;
-  teams: string[] = []; // lista de times
+  teams: Team[] = []; // lista de times
   maxTeams = 20;
   leagues: string[] = ['Liga Nacional', 'Copa Regional', 'Campeonato de Bairro', 'Torneio Municipal'];
+  isLoading = false;
 
-
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private leagueService: SignupLeagueService,
+    private teamService: SignupTeamService
+  ) {
     this.signupTeamForm = this.fb.group({
-      league: ['', [
-        Validators.required,
-        Validators.pattern(/^[A-Za-zÀ-ÿ]+(?: [A-Za-zÀ-ÿ]+)*$/),
-        Validators.minLength(3),
-        Validators.maxLength(20)
-      ]],
-      teamName: ['', [
-        Validators.required,
-        Validators.pattern(/^[A-Za-zÀ-ÿ]+(?: [A-Za-zÀ-ÿ]+)*$/),
-        Validators.minLength(3),
-        Validators.maxLength(20)
-      ]]
+      league: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^[A-Za-zÀ-ÿ]+(?: [A-Za-zÀ-ÿ]+)*$/),
+          Validators.minLength(3),
+          Validators.maxLength(20)
+        ]
+      ],
+      teamName: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^[A-Za-zÀ-ÿ]+(?: [A-Za-zÀ-ÿ]+)*$/),
+          Validators.minLength(3),
+          Validators.maxLength(20)
+        ]
+      ]
     });
   }
 
   /** Adiciona uma nova liga se não existir ainda E se for válida */
-  addLeagueIfNew() {
+  adicionaLiga() {
     const leagueControl = this.signupTeamForm.get('league');
     if (!leagueControl) return;
 
     const raw = String(leagueControl.value ?? '').trim();
 
-    // se campo vazio não faz nada (deixe o required ser exibido na validação final)
-    if (!raw) return;
-
     // valida via form control: se inválido, não adiciona e deixa a mensagem aparecer
     if (leagueControl.invalid) {
-      // opcional: forçar exibição dos erros
       leagueControl.markAsTouched();
-    return;
+      return;
     }
-
-    // se válido e não existe, adiciona ao array de ligas
-    if (raw && !this.leagues.includes(raw)) {
-      this.leagues.push(raw);
-    }
-
-    // opcional: manter o valor selecionado (não resetar), ou resetar se preferir
-    // leagueControl.setValue(raw); // já está com raw
   }
 
-
-  // Método para adicionar o time à lista
-  addTeam() {
+  /** Adiciona time à lista local */
+  AdicionaTimeLista() {
     const nameControl = this.signupTeamForm.get('teamName');
-    if (!nameControl || nameControl.invalid) return;
+
+    if (!nameControl || nameControl.invalid) {
+      nameControl?.markAsTouched();
+      return;
+    }
 
     if (this.teams.length >= this.maxTeams) {
       alert('Limite máximo de 20 times atingido!');
@@ -73,45 +77,82 @@ export class SignupTeamComponent {
     }
 
     const name = nameControl.value.trim();
-    const cleanName = name.replace(/\s+/g, '');
-    if (cleanName.length < 3) {
-      alert('O nome deve ter pelo menos 3 letras válidas.');
+
+    if (this.teams.some(t => t.nome.toLowerCase() === name.toLowerCase())) {
+      alert('Já existe um time com esse nome.');
       return;
     }
 
-    this.teams.push(name);
+    this.teams.push({ nome: name });
     nameControl.reset();
   }
 
-  /** Validação final antes de seguir para a próxima etapa */
-  goToPlayers() {
-    const league = this.signupTeamForm.get('league')?.value;
-
-    if (!league) {
-      alert('Antes de prosseguir, selecione o nome da liga.');
-      return;
-    }
-
-    if (this.teams.length === 0) {
-      alert('Cadastre pelo menos um time antes de prosseguir.');
-      return;
-    }
-
-    // Aqui você pode salvar no backend ou seguir para a próxima rota
-    this.router.navigate(['signup-players']);
-  }
-
-  //metodo para remover os times da lista
+  // método para remover os times da lista
   removeTeam(index: number) {
     this.teams.splice(index, 1);
   }
 
-  //metodo para voltar para a tela anterior
+
+  salvarLigaETime() {
+    const leagueName = this.signupTeamForm.get('league')?.value?.trim();
+
+    if (!leagueName) {
+      alert('O nome da liga é obrigatório.');
+      return;
+    }
+
+    if (this.teams.length === 0) {
+      alert('Cadastre pelo menos um time antes de continuar.');
+      return;
+    }
+
+    this.isLoading = true;
+
+    this.leagueService.registrarLiga(leagueName).subscribe({
+      next: ligaCriada => {
+        console.log('Liga criada:', ligaCriada);
+
+        const ligaId = ligaCriada.id;
+
+        // Monta exatamente no formato do Swagger
+        const payload = this.teams.map(team => ({ nome: team.nome }));
+
+        this.teamService.cadastrarTimes(ligaId!, payload).subscribe({
+          next: () => {
+            alert(`Liga "${leagueName}" criada com ${this.teams.length} times!`);
+
+            // Limpa a lista de times
+            this.teams = [];
+
+            // Limpa o campo do input de time
+            this.signupTeamForm.get('teamName')?.reset();
+
+            // Limpar a liga
+            this.signupTeamForm.get('league')?.reset();
+
+            this.isLoading = false;
+          },
+          error: err => {
+            console.error('Erro ao cadastrar times em lote:', err);
+            alert('Liga criada, mas houve erro ao cadastrar os times.');
+            this.isLoading = false;
+          }
+        });
+      },
+      error: err => {
+        console.error('Erro ao criar liga:', err);
+        alert('Erro ao cadastrar liga.');
+        this.isLoading = false;
+      }
+    });
+  }
+
+  // método para voltar para a tela anterior
   goBack() {
     this.router.navigate(['signup-success']);
   }
 
-  //metodo para voltar para a tela de boas-vindas
+  // método para voltar para a tela de boas-vindas
   goWelcome() {
     this.router.navigate(['']);
   }

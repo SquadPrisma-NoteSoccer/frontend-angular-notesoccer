@@ -15,6 +15,8 @@ import { Organizer } from '../../models/organizer';
 export class SignupOrganizerComponent {
 
   signupForm: FormGroup;
+  showPassword = false;
+
 
   constructor(
     private fb: FormBuilder,
@@ -62,14 +64,38 @@ export class SignupOrganizerComponent {
       const organizer: Organizer = this.signupForm.value;
       console.log('Enviando para o backend:', organizer);
 
-      this.signupOrganizerService.registerOrganizer(organizer).subscribe({
+      this.signupOrganizerService.cadastrarOrganizador(organizer).subscribe({
         next: (response) => {
-          console.log('Organizador cadastrado com sucesso:', response);
-          alert(`Organizador cadastrado com sucesso! ID: ${response.id}`);
+
+          const organizer = {
+            id: response.userId,
+            nome: response.nome,
+            email: response.email
+          };
+
+          console.log('Resposta do backend:', response);
+
+          // Salvar o organizador completo
+          localStorage.setItem('organizer', JSON.stringify(response));
+
+          // Salvar o token
+          if (response.token) {
+            localStorage.setItem('token', response.token);
+          }
+
+          alert(`Organizador cadastrado com sucesso!`);
           this.router.navigate(['/signup-success']);
+
         },
         error: (err) => {
           console.error('Erro ao cadastrar organizador:', err);
+
+          // 🔍 Verifica se o erro é de e-mail duplicado
+          if (err.status === 409 && err.error?.code === "EMAIL_ALREADY_EXISTS") {
+            alert('Este e-mail já está cadastrado. Tente outro.');
+          return;
+          }
+
           alert('Erro ao cadastrar organizador. Verifique os dados e tente novamente.');
         }
       });
@@ -86,7 +112,12 @@ export class SignupOrganizerComponent {
   }
 
   goLogin() {
-  this.router.navigate(['/login-organizer']);
+    this.router.navigate(['/login-organizer']);
   }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
 
 }
