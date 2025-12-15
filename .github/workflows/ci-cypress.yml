@@ -8,6 +8,7 @@ on:
             - 'cypress/**'
             - 'package.json'
             - 'package-lock.json'
+            - 'ci-cypress.yml'
   pull_request:
         branches:
             - staging
