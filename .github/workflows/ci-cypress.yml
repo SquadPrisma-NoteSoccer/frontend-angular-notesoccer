@@ -3,12 +3,12 @@ name: Cypress Tests (Chrome + Cloud)
 on:
   push:
         branches:
-            - test/organizacao-cypress
+            - test/**
         paths:
             - 'cypress/**'
             - 'package.json'
             - 'package-lock.json'
-            - 'ci-cypress.yml'
+            - '.github/workflows/ci-cypress.yml'
   pull_request:
         branches:
             - staging
