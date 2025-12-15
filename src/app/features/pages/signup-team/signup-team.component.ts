@@ -2,12 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { forkJoin } from 'rxjs';
-import { League } from '../../models/league';
 import { SignupLeagueService } from '../../services/signup-league.service';
 import { SignupTeamService } from '../../services/signup-team.service';
 import { Team } from '../../models/team';
-
 
 @Component({
   selector: 'app-signup-team',
@@ -23,7 +20,6 @@ export class SignupTeamComponent {
   leagues: string[] = ['Liga Nacional', 'Copa Regional', 'Campeonato de Bairro', 'Torneio Municipal'];
   isLoading = false;
 
-
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -31,18 +27,24 @@ export class SignupTeamComponent {
     private teamService: SignupTeamService
   ) {
     this.signupTeamForm = this.fb.group({
-      league: ['', [
-        Validators.required,
-        Validators.pattern(/^[A-Za-zÀ-ÿ]+(?: [A-Za-zÀ-ÿ]+)*$/),
-        Validators.minLength(3),
-        Validators.maxLength(20)
-      ]],
-      teamName: ['', [
-        Validators.required,
-        Validators.pattern(/^[A-Za-zÀ-ÿ]+(?: [A-Za-zÀ-ÿ]+)*$/),
-        Validators.minLength(3),
-        Validators.maxLength(20)
-      ]]
+      league: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^[A-Za-zÀ-ÿ]+(?: [A-Za-zÀ-ÿ]+)*$/),
+          Validators.minLength(3),
+          Validators.maxLength(20)
+        ]
+      ],
+      teamName: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^[A-Za-zÀ-ÿ]+(?: [A-Za-zÀ-ÿ]+)*$/),
+          Validators.minLength(3),
+          Validators.maxLength(20)
+        ]
+      ]
     });
   }
 
@@ -56,14 +58,14 @@ export class SignupTeamComponent {
     // valida via form control: se inválido, não adiciona e deixa a mensagem aparecer
     if (leagueControl.invalid) {
       leagueControl.markAsTouched();
-    return;
+      return;
     }
   }
-
 
   /** Adiciona time à lista local */
   AdicionaTimeLista() {
     const nameControl = this.signupTeamForm.get('teamName');
+
     if (!nameControl || nameControl.invalid) {
       nameControl?.markAsTouched();
       return;
@@ -75,6 +77,7 @@ export class SignupTeamComponent {
     }
 
     const name = nameControl.value.trim();
+
     if (this.teams.some(t => t.nome.toLowerCase() === name.toLowerCase())) {
       alert('Já existe um time com esse nome.');
       return;
@@ -84,13 +87,15 @@ export class SignupTeamComponent {
     nameControl.reset();
   }
 
-  //metodo para remover os times da lista
+  // método para remover os times da lista
   removeTeam(index: number) {
     this.teams.splice(index, 1);
   }
 
+
   salvarLigaETime() {
     const leagueName = this.signupTeamForm.get('league')?.value?.trim();
+
     if (!leagueName) {
       alert('O nome da liga é obrigatório.');
       return;
@@ -109,10 +114,8 @@ export class SignupTeamComponent {
 
         const ligaId = ligaCriada.id;
 
-        // ✅ Monta exatamente no formato do Swagger
-        const payload = this.teams.map(team => ({
-          nome: team.nome
-        }));
+        // Monta exatamente no formato do Swagger
+        const payload = this.teams.map(team => ({ nome: team.nome }));
 
         this.teamService.cadastrarTimes(ligaId!, payload).subscribe({
           next: () => {
@@ -144,14 +147,12 @@ export class SignupTeamComponent {
     });
   }
 
-
-
-  //metodo para voltar para a tela anterior
+  // método para voltar para a tela anterior
   goBack() {
     this.router.navigate(['signup-success']);
   }
 
-  //metodo para voltar para a tela de boas-vindas
+  // método para voltar para a tela de boas-vindas
   goWelcome() {
     this.router.navigate(['']);
   }

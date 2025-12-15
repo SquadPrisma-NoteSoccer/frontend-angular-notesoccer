@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginOrganizerService } from '../../services/login-organizer.service';
 
 @Component({
   selector: 'app-login-organizer',
@@ -16,6 +17,7 @@ export class LoginOrganizerComponent {
   constructor(
     private router: Router,
     private fb: FormBuilder,
+    private loginService: LoginOrganizerService
   ){
   this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -29,16 +31,38 @@ export class LoginOrganizerComponent {
   }
 
   onLogin() {
-    if (this.loginForm.valid) {
-      const loginData = this.loginForm.value;
-      console.log('Tentando login com:', loginData);
-
-      // Aqui depois faremos a integração com o backend
-      alert('Login efetuado com sucesso!');
-      this.router.navigate(['/home']); // troque para a rota desejada
-    } else {
+    if (!this.loginForm.valid) {
       alert('Preencha os campos corretamente.');
+      return;
     }
+
+    const loginData = this.loginForm.value;
+
+    this.loginService.login(loginData).subscribe({
+      next: (response) => {
+        console.log('Login OK:', response);
+
+        // Salvar token
+        localStorage.setItem('token', response.token);
+
+        // Montar organizer a partir da resposta
+        const organizerData = {
+          id: response.userId,
+          nome: response.nome,
+          email: response.email,
+          role: response.role
+        };
+
+        localStorage.setItem('organizer', JSON.stringify(organizerData));
+
+        alert('Login efetuado com sucesso!');
+        this.router.navigate(['/signup-success']);
+      },
+      error: (err) => {
+        console.error('Erro no login:', err);
+        alert('Usuário ou senha inválidos!');
+      }
+    });
   }
 
 }

@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  apiUrl: (window as any).__env?.NG_APP_API_BASE_URL,
-  //apiUrl: 'https://notesoccer.lavicestas.com.br',
+  //apiUrl: (window as any).__env?.NG_APP_API_BASE_URL,
+  apiUrl: 'https://notesoccer.lavicestas.com.br',
 };
