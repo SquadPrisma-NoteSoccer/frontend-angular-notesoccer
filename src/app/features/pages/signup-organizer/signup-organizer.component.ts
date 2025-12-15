@@ -15,6 +15,8 @@ import { Organizer } from '../../models/organizer';
 export class SignupOrganizerComponent {
 
   signupForm: FormGroup;
+  showPassword = false;
+
 
   constructor(
     private fb: FormBuilder,
@@ -62,12 +64,14 @@ export class SignupOrganizerComponent {
       const organizer: Organizer = this.signupForm.value;
       console.log('Enviando para o backend:', organizer);
 
-      this.signupOrganizerService.registerOrganizer(organizer).subscribe({
+      this.signupOrganizerService.cadastrarOrganizador(organizer).subscribe({
         next: (response) => {
-<<<<<<< Updated upstream
-          console.log('Organizador cadastrado com sucesso:', response);
-          alert(`Organizador cadastrado com sucesso! ID: ${response.id}`);
-=======
+
+          const organizer = {
+            id: response.userId,
+            nome: response.nome,
+            email: response.email
+          };
 
           console.log('Resposta do backend:', response);
 
@@ -79,10 +83,7 @@ export class SignupOrganizerComponent {
             localStorage.setItem('token', response.token);
           }
 
-
-
           alert(`Organizador cadastrado com sucesso!`);
->>>>>>> Stashed changes
           this.router.navigate(['/signup-success']);
 
         },
@@ -98,13 +99,19 @@ export class SignupOrganizerComponent {
   }
 
 
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+
+
   //metodo para voltar para a tela de boas-vindas
   goWelcome() {
     this.router.navigate(['']);
   }
 
   goLogin() {
-  this.router.navigate(['/login-organizer']);
+    this.router.navigate(['/login-organizer']);
   }
 
 }
