@@ -106,12 +106,6 @@ export class SignupOrganizerComponent {
   }
 
 
-  togglePasswordVisibility() {
-    this.showPassword = !this.showPassword;
-  }
-
-
-
   //metodo para voltar para a tela de boas-vindas
   goWelcome() {
     this.router.navigate(['']);
