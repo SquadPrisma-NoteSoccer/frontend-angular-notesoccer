@@ -89,6 +89,13 @@ export class SignupOrganizerComponent {
         },
         error: (err) => {
           console.error('Erro ao cadastrar organizador:', err);
+
+          // 🔍 Verifica se o erro é de e-mail duplicado
+          if (err.status === 409 && err.error?.code === "EMAIL_ALREADY_EXISTS") {
+            alert('Este e-mail já está cadastrado. Tente outro.');
+          return;
+          }
+
           alert('Erro ao cadastrar organizador. Verifique os dados e tente novamente.');
         }
       });
@@ -113,5 +120,10 @@ export class SignupOrganizerComponent {
   goLogin() {
     this.router.navigate(['/login-organizer']);
   }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
 
 }

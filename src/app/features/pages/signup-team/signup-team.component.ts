@@ -55,12 +55,8 @@ export class SignupTeamComponent {
 
     const raw = String(leagueControl.value ?? '').trim();
 
-    // se campo vazio não faz nada (deixe o required ser exibido na validação final)
-    if (!raw) return;
-
     // valida via form control: se inválido, não adiciona e deixa a mensagem aparecer
     if (leagueControl.invalid) {
-      // opcional: forçar exibição dos erros
       leagueControl.markAsTouched();
       return;
     }
