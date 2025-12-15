@@ -3,24 +3,17 @@ name: Cypress Tests (Chrome + Cloud)
 on:
   push:
         branches: [test]
-        paths-ignore:
+        paths:
             - 'cypress/**'
             - 'package.json'
             - 'package-lock.json'
-            - 'README.md'  
-            - '.vscode/**'
-            -  '**.sh'
   pull_request:
         branches:
             - staging
-        paths-ignore:
+        paths:
             - 'cypress/**'
             - 'package.json'
             - 'package-lock.json'
-            - 'README.md'  
-            - '.vscode/**'
-            -  '**.sh'
-
   workflow_dispatch: # permite rodar manualmente pelo GitHub
         inputs:
             browsers:
