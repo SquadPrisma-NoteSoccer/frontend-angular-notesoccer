@@ -25,7 +25,7 @@ on:
                 default: "chrome"
 
 jobs:
-    test:
+    testes-e2e-cypress:
         timeout-minutes: 60
         runs-on: ubuntu-latest
         strategy:
