@@ -544,8 +544,8 @@
   }
 
   .div-btn-matches button i {
-    right: 1rem;
-    font-size: 1rem;
+    left: 0.7rem;
+    font-size: 0.8rem;
   }
 
   /* Ajuste na lista para caber tudo */

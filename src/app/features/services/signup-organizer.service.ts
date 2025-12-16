@@ -8,11 +8,11 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class SignupOrganizerService {
-  private url = `${environment.apiUrl}/api/v1/orquestrador/usuarios`;
+  private url = `${environment.apiUrl}/api/v1/auth/signup`;
 
   constructor(private http: HttpClient) {}
 
-  registerOrganizer(organizer: Organizer): Observable<Organizer> {
+  cadastrarOrganizador(organizer: Organizer): Observable<Organizer> {
     return this.http.post<Organizer>(this.url, organizer);
   }
 }
