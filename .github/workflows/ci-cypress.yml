@@ -1,56 +1,54 @@
-name: Cypress Automação (Chrome)
+name: Cypress Tests (Chrome + Cloud)
 
 on:
   push:
-    branches:
-      - "test/**"
-    paths-ignore:
-      - "README.md"
-
+        branches:
+            - test/**
+        paths-ignore:
+            - 'README.md'
+            - 'cypress/screenshots/**'
+            - 'cypress/videos/**'
+            - 'tests/e2e-reports/**'
   pull_request:
-    branches:
-      - staging
-    paths-ignore:
-      - "README.md"
-
-  workflow_dispatch:
+        branches:
+            - staging
+        paths-ignore:
+            - 'README.md'
+            - 'cypress/screenshots/**'
+            - 'cypress/videos/**'
+            - 'tests/e2e-reports/**'
+  workflow_dispatch: # permite rodar manualmente pelo GitHub
+        inputs:
+            browsers:
+                description: "Escolher navegadores (chrome, edge, firefox, electron)"
+                required: false
+                default: "chrome"
 
 jobs:
-  cypress:
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
+    test:
+        timeout-minutes: 60
+        runs-on: ubuntu-latest
+        strategy:
+          matrix:
+            browser: [chrome]        
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: lts/*
+            - name: Install dependencies
+              run: npm ci
 
-    strategy:
-      fail-fast: false
-      matrix:
-        browser: [chrome]
+            - name: Verify Cypress installation
+              run: npx cypress verify
 
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "npm"
-
-      # Cache explícito do Cypress
-      - name: Cache Cypress binary
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run Cypress tests
-        uses: cypress-io/github-action@v6
-        with:
-          browser: ${{ matrix.browser }}
-          record: true
-          parallel: false
-          group: "E2E - ${{ matrix.browser }}"
-        env:
-          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+            - name: Run Cypress tests
+              uses: cypress-io/github-action@v5
+              with:
+                  browser: ${{ matrix.browser }}              
+                  record: true                 # envia resultados para o Cypress Dashboard
+                  parallel: true              # ajuste se quiser rodar paralelo
+                  group: "GitHub Actions - ${{ matrix.browser }}"  # nome do grupo no Dashboard
+              env:
+                  CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+                  CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
