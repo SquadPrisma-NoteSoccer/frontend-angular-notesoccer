@@ -25,17 +25,27 @@ on:
                 default: "chrome"
 
 jobs:
-    testes-e2e-cypress:
+    cypress-run:
         timeout-minutes: 60
         runs-on: ubuntu-latest
         strategy:
           matrix:
             browser: [chrome]        
         steps:
-            - uses: actions/checkout@v4
-            - uses: actions/setup-node@v4
+            - uses: actions/checkout@v5
+            - uses: actions/setup-node@v5
               with:
-                  node-version: lts/*
+                  node-version: 24
+                  cache: 'npm'
+
+          # Cache do binário do Cypress
+            - name: Cache Cypress binary
+              uses: actions/cache@v5
+              with:
+                path: ~/.cache/Cypress
+                key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+                restore-keys: |
+                  cypress-${{ runner.os }}-
             - name: Install dependencies
               run: npm ci
 
@@ -47,7 +57,7 @@ jobs:
               with:
                   browser: ${{ matrix.browser }}              
                   record: true                 # envia resultados para o Cypress Dashboard
-                  parallel: true              # ajuste se quiser rodar paralelo
+                  parallel: false              # ajuste se quiser rodar paralelo
                   group: "GitHub Actions - ${{ matrix.browser }}"  # nome do grupo no Dashboard
               env:
                   CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
