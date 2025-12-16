@@ -2,7 +2,7 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: {
-    baseUrl: 'http://localhost:4201',
+    baseUrl: 'https://develop--notesoccer.netlify.app/',
     projectId: process.env['CYPRESS_PROJECT_ID'],
     defaultCommandTimeout: 10000, // pode esperar até 10 segundos por comando
     video: true,

@@ -16,4 +16,9 @@
 // Import commands.js using ES2015 syntax:
 import './commands'
 
+afterEach(function () {
+  const nomeTeste = this.currentTest.title.replace(/[/\\?%*:|"<>]/g, '-');
+  const status = this.currentTest.state === 'passed' ? 'SUCESSO' : 'FALHA';
+  cy.screenshot(`${status} - ${nomeTeste}`, { capture: 'runner' });
+});
 
