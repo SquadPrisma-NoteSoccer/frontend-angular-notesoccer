@@ -83,11 +83,22 @@
         </button>
       </div>
 
+      <div
+        class="msg-limit"
+        *ngIf="teams.length >= maxTeams"
+        data-cy="msg-limit"
+      >Limite máximo de 20 times atingido. Para adicionar um novo time, remova algum da lista.
+      </div>
+
       <!-- Mensagens de validação -->
       <div *ngIf="signupTeamForm.get('teamName')?.touched">
-        <div class="msg-validation" *ngIf="signupTeamForm.get('teamName')?.hasError('required')">
+
+        <!-- REQUIRED: só se NÃO houver times -->
+        <div class="msg-validation" *ngIf="signupTeamForm.get('teamName')?.hasError('required')  && teams.length === 0">
           O nome do time é obrigatório.
         </div>
+
+        <!-- PATTERN -->
         <div class="msg-validation" *ngIf="signupTeamForm.get('teamName')?.hasError('pattern')">
           O nome deve conter apenas letras e espaços.
         </div>

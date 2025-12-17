@@ -31,7 +31,7 @@ export class SignupTeamComponent {
         '',
         [
           Validators.required,
-          Validators.pattern(/^[A-Za-zÀ-ÿ]+(?: [A-Za-zÀ-ÿ]+)*$/),
+          Validators.pattern(/^[A-Za-zÀ-ÿ]+(?: [A-Za-zÀ-ÿ]+)*\s*$/),
           Validators.minLength(3),
           Validators.maxLength(20)
         ]
@@ -40,12 +40,14 @@ export class SignupTeamComponent {
         '',
         [
           Validators.required,
-          Validators.pattern(/^[A-Za-zÀ-ÿ]+(?: [A-Za-zÀ-ÿ]+)*$/),
+          Validators.pattern(/^[A-Za-zÀ-ÿ]+(?: [A-Za-zÀ-ÿ]+)*\s*$/),
           Validators.minLength(3),
           Validators.maxLength(20)
         ]
       ]
     });
+
+
   }
 
   /** Adiciona uma nova liga se não existir ainda E se for válida */
@@ -85,11 +87,14 @@ export class SignupTeamComponent {
 
     this.teams.push({ nome: name });
     nameControl.reset();
+
+    this.atualizaCampoNomeDeTime();
   }
 
   // método para remover os times da lista
   removeTeam(index: number) {
     this.teams.splice(index, 1);
+    this.atualizaCampoNomeDeTime();
   }
 
 
@@ -156,4 +161,17 @@ export class SignupTeamComponent {
   goWelcome() {
     this.router.navigate(['']);
   }
+
+  //metodo que bloqueia quando o limite de 20 times for atingido
+  private atualizaCampoNomeDeTime() {
+    const control = this.signupTeamForm.get('teamName');
+    if (!control) return;
+
+    if (this.teams.length >= this.maxTeams) {
+      control.disable({ emitEvent: false });
+    } else {
+      control.enable({ emitEvent: false });
+    }
+  }
+
 }
