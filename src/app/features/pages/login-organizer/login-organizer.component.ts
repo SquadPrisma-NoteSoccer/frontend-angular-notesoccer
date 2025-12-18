@@ -13,6 +13,7 @@ import { LoginOrganizerService } from '../../services/login-organizer.service';
 export class LoginOrganizerComponent {
 
   loginForm: FormGroup;
+  showPassword = false;
 
   constructor(
     private router: Router,
@@ -31,6 +32,35 @@ export class LoginOrganizerComponent {
   }
 
   onLogin() {
+
+    const emailControl = this.loginForm.get('email');
+    const senhaControl = this.loginForm.get('senha');
+
+    const email = emailControl?.value?.trim();
+    const senha = senhaControl?.value?.trim();
+
+    // força exibição das validações visuais
+    emailControl?.markAsTouched();
+    senhaControl?.markAsTouched();
+
+    // ambos vazios
+    if (!email && !senha) {
+      alert('Preencha os campos E-mail e Senha.');
+      return;
+    }
+
+    // somente email vazio
+    if (!email) {
+      alert('O campo E-mail é obrigatório.');
+      return;
+    }
+
+    // somente senha vazia
+    if (!senha) {
+      alert('O campo Senha é obrigatório.');
+      return;
+    }
+
     if (!this.loginForm.valid) {
       alert('Preencha os campos corretamente.');
       return;
@@ -63,6 +93,10 @@ export class LoginOrganizerComponent {
         alert('Usuário ou senha inválidos!');
       }
     });
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 
 }
